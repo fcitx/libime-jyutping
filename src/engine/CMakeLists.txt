@@ -2,7 +2,7 @@ set(JYUTPING_SOURCES
     engine.cpp
 )
 add_library(jyutping MODULE ${JYUTPING_SOURCES})
-target_link_libraries(jyutping Fcitx5::Core Fcitx5::Config Fcitx5::Module::Fullwidth Fcitx5::Module::Spell Fcitx5::Module::Punctuation Fcitx5::Module::QuickPhrase LibIME::Jyutping Boost::iostreams)
+target_link_libraries(jyutping Fcitx5::Core Fcitx5::Config Fcitx5::Module::Spell Fcitx5::Module::Punctuation Fcitx5::Module::QuickPhrase LibIME::Jyutping Boost::iostreams)
 set_target_properties(jyutping PROPERTIES PREFIX "")
 target_compile_definitions(jyutping
   PRIVATE LIBIME_INSTALL_PKGDATADIR=\"${LIBIME_INSTALL_PKGDATADIR}\"

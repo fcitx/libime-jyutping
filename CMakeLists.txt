@@ -32,7 +32,7 @@ set(LIBIME_INSTALL_PKGDATADIR "${CMAKE_INSTALL_FULL_DATADIR}/libime")
 
 find_package(LibIMECore REQUIRED)
 find_package(Gettext REQUIRED)
-find_package(Fcitx5Module REQUIRED Spell Fullwidth Punctuation QuickPhrase)
+find_package(Fcitx5Module REQUIRED Spell Punctuation QuickPhrase)
 
 if(ENABLE_TEST)
     enable_testing()
