@@ -95,6 +95,7 @@ enum class JyutpingFinal : char {
     OE,
     OENG,
     OEK,
+    OM,
     EOI,
     EON,
     EOT,

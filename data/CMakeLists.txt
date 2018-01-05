@@ -1,11 +1,11 @@
-set(DICT_TAR "jyutping-dict-20180103.tar.xz")
+set(DICT_TAR "jyutping-dict-20180104.tar.xz")
 set(DICT_URL "https://download.fcitx-im.org/data/${DICT_TAR}")
 
 set(MODEL_TAR "jyutping-model-20180103.tar.xz")
 set(MODEL_URL "https://download.fcitx-im.org/data/${MODEL_TAR}")
 
 fcitx5_download(dict-download ${DICT_URL} ${DICT_TAR}
-                82e3d89eb4cefea8ea0704dfa31f4343d827cb1b2b8885bf7ba9068178aafeee)
+                e3a5b13edb8efa2f764245a3232f99ba7e7670e22b8cbe666a4fffa84b35f35b)
 fcitx5_extract(dict-extract ${DICT_TAR} DEPENDS dict-download
                 OUTPUT words.txt)
 
