@@ -25,6 +25,7 @@
 #include "libime/core/datrie.h"
 #include "libime/core/lattice.h"
 #include "libime/core/lrucache.h"
+#include "libime/core/utils.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/unordered_map.hpp>
@@ -41,6 +42,9 @@ namespace jyutping {
 static const float fuzzyCost = std::log10(0.5f);
 static const float invalidJyutpingCost = -100.0f;
 static const char jyutpingHanziSep = '\x01';
+
+static constexpr uint32_t jyutpingBinaryFormatMagic = 0x000fc733;
+static constexpr uint32_t jyutpingBinaryFormatVersion = 0x1;
 
 struct JyutpingSegmentGraphPathHasher {
     JyutpingSegmentGraphPathHasher(const SegmentGraph &graph) : graph_(graph) {}
@@ -638,6 +642,17 @@ void JyutpingDictionary::loadText(size_t idx, std::istream &in) {
 
 void JyutpingDictionary::loadBinary(size_t idx, std::istream &in) {
     DATrie<float> trie;
+    uint32_t magic;
+    uint32_t version;
+    in >> magic;
+    throw_if_io_fail(unmarshall(in, magic));
+    if (magic != jyutpingBinaryFormatMagic) {
+        throw std::invalid_argument("Invalid jyutping magic.");
+    }
+    throw_if_io_fail(unmarshall(in, version));
+    if (version != jyutpingBinaryFormatVersion) {
+        throw std::invalid_argument("Invalid jyutping version.");
+    }
     trie.load(in);
     *mutableTrie(idx) = std::move(trie);
 }
@@ -658,6 +673,8 @@ void JyutpingDictionary::save(size_t idx, std::ostream &out,
         saveText(idx, out);
         break;
     case JyutpingDictFormat::Binary:
+        throw_if_io_fail(marshall(out, jyutpingBinaryFormatMagic));
+        throw_if_io_fail(marshall(out, jyutpingBinaryFormatVersion));
         mutableTrie(idx)->save(out);
         break;
     default:
