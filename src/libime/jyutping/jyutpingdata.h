@@ -32,28 +32,27 @@
 namespace libime {
 namespace jyutping {
 struct JyutpingHash : std::unary_function<boost::string_view, std::size_t> {
-    std::size_t operator()(boost::string_view const &val) const {
-        return boost::hash_range(val.begin(), val.end());
-    }
+  std::size_t operator()(boost::string_view const &val) const {
+    return boost::hash_range(val.begin(), val.end());
+  }
 };
 
 class JyutpingEntry {
 public:
-    JyutpingEntry(const char *jyutping, JyutpingInitial initial,
-                  JyutpingFinal final, bool fuzzy = false)
-        : jyutping_(jyutping), initial_(initial), final_(final), fuzzy_(fuzzy) {
-    }
+  JyutpingEntry(const char *jyutping, JyutpingInitial initial,
+                JyutpingFinal final, bool fuzzy = false)
+      : jyutping_(jyutping), initial_(initial), final_(final), fuzzy_(fuzzy) {}
 
-    boost::string_view jyutping() const { return jyutping_; }
-    JyutpingInitial initial() const { return initial_; }
-    JyutpingFinal final() const { return final_; }
-    bool fuzzy() const { return fuzzy_; }
+  boost::string_view jyutping() const { return jyutping_; }
+  JyutpingInitial initial() const { return initial_; }
+  JyutpingFinal final() const { return final_; }
+  bool fuzzy() const { return fuzzy_; }
 
 private:
-    std::string jyutping_;
-    JyutpingInitial initial_;
-    JyutpingFinal final_;
-    bool fuzzy_;
+  std::string jyutping_;
+  JyutpingInitial initial_;
+  JyutpingFinal final_;
+  bool fuzzy_;
 };
 
 using JyutpingMap = boost::multi_index_container<

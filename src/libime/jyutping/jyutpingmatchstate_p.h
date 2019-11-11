@@ -36,54 +36,54 @@ using JyutpingTriePositions = std::vector<JyutpingTriePosition>;
 
 // Matching result for a specific JyutpingTrie.
 struct MatchedJyutpingTrieNodes {
-    MatchedJyutpingTrieNodes(const JyutpingTrie *trie, size_t size)
-        : trie_(trie), size_(size) {}
-    FCITX_INLINE_DEFINE_DEFAULT_DTOR_COPY_AND_MOVE(MatchedJyutpingTrieNodes)
+  MatchedJyutpingTrieNodes(const JyutpingTrie *trie, size_t size)
+      : trie_(trie), size_(size) {}
+  FCITX_INLINE_DEFINE_DEFAULT_DTOR_COPY_AND_MOVE(MatchedJyutpingTrieNodes)
 
-    const JyutpingTrie *trie_;
-    JyutpingTriePositions triePositions_;
+  const JyutpingTrie *trie_;
+  JyutpingTriePositions triePositions_;
 
-    // Size of syllables.
-    size_t size_;
+  // Size of syllables.
+  size_t size_;
 };
 
 // A cache to store the matched word, encoded Full Jyutping for this word and
 // the
 // adjustment score.
 struct JyutpingMatchResult {
-    JyutpingMatchResult(boost::string_view s, float value,
-                        boost::string_view encodedJyutping)
-        : word_(s, InvalidWordIndex), value_(value),
-          encodedJyutping_(encodedJyutping.to_string()) {}
-    WordNode word_;
-    float value_;
-    std::string encodedJyutping_;
+  JyutpingMatchResult(boost::string_view s, float value,
+                      boost::string_view encodedJyutping)
+      : word_(s, InvalidWordIndex), value_(value),
+        encodedJyutping_(encodedJyutping.to_string()) {}
+  WordNode word_;
+  float value_;
+  std::string encodedJyutping_;
 };
 
 // class to store current SegmentGraphPath leads to this match and the match
 // reuslt.
 struct MatchedJyutpingPath {
-    MatchedJyutpingPath(const JyutpingTrie *trie, size_t size,
-                        SegmentGraphPath path)
-        : result_(std::make_shared<MatchedJyutpingTrieNodes>(trie, size)),
-          path_(std::move(path)) {}
+  MatchedJyutpingPath(const JyutpingTrie *trie, size_t size,
+                      SegmentGraphPath path)
+      : result_(std::make_shared<MatchedJyutpingTrieNodes>(trie, size)),
+        path_(std::move(path)) {}
 
-    MatchedJyutpingPath(std::shared_ptr<MatchedJyutpingTrieNodes> result,
-                        SegmentGraphPath path)
-        : result_(result), path_(std::move(path)) {}
+  MatchedJyutpingPath(std::shared_ptr<MatchedJyutpingTrieNodes> result,
+                      SegmentGraphPath path)
+      : result_(result), path_(std::move(path)) {}
 
-    FCITX_INLINE_DEFINE_DEFAULT_DTOR_COPY_AND_MOVE(MatchedJyutpingPath)
+  FCITX_INLINE_DEFINE_DEFAULT_DTOR_COPY_AND_MOVE(MatchedJyutpingPath)
 
-    auto &triePositions() { return result_->triePositions_; }
-    const auto &triePositions() const { return result_->triePositions_; }
-    const JyutpingTrie *trie() const { return result_->trie_; }
+  auto &triePositions() { return result_->triePositions_; }
+  const auto &triePositions() const { return result_->triePositions_; }
+  const JyutpingTrie *trie() const { return result_->trie_; }
 
-    // Size of syllables. not necessarily equal to size of path_, because there
-    // may be separators.
-    auto size() const { return result_->size_; }
+  // Size of syllables. not necessarily equal to size of path_, because there
+  // may be separators.
+  auto size() const { return result_->size_; }
 
-    std::shared_ptr<MatchedJyutpingTrieNodes> result_;
-    SegmentGraphPath path_;
+  std::shared_ptr<MatchedJyutpingTrieNodes> result_;
+  SegmentGraphPath path_;
 };
 
 // A list of all search paths
@@ -108,15 +108,15 @@ typedef std::unordered_map<
 
 class JyutpingMatchStatePrivate {
 public:
-    JyutpingMatchStatePrivate(JyutpingContext *context) : context_(context) {}
+  JyutpingMatchStatePrivate(JyutpingContext *context) : context_(context) {}
 
-    JyutpingContext *context_;
-    NodeToMatchedJyutpingPathsMap matchedPaths_;
-    JyutpingTrieNodeCache nodeCacheMap_;
-    JyutpingMatchResultCache matchCacheMap_;
+  JyutpingContext *context_;
+  NodeToMatchedJyutpingPathsMap matchedPaths_;
+  JyutpingTrieNodeCache nodeCacheMap_;
+  JyutpingMatchResultCache matchCacheMap_;
 };
 
 } // namespace jyutping
-}
+} // namespace libime
 
 #endif // _LIBIME_JYUTPING_LIBIME_JYUTPING_JYUTPINGMATCHSTATE_P_H_

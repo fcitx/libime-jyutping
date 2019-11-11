@@ -27,13 +27,13 @@ namespace jyutping {
 
 class JyutpingLatticeNodePrivate : public LatticeNodeData {
 public:
-    JyutpingLatticeNodePrivate(boost::string_view encodedJyutping)
-        : encodedJyutping_(encodedJyutping.to_string()) {}
+  JyutpingLatticeNodePrivate(boost::string_view encodedJyutping)
+      : encodedJyutping_(encodedJyutping.to_string()) {}
 
-    std::string encodedJyutping_;
+  std::string encodedJyutping_;
 };
 
 } // namespace jyutping
-}
+} // namespace libime
 
 #endif // _LIBIME_JYUTPING_LIBIME_JYUTPING_JYUTPINGDECODER_P_H_
