@@ -644,7 +644,6 @@ void JyutpingDictionary::loadBinary(size_t idx, std::istream &in) {
     DATrie<float> trie;
     uint32_t magic;
     uint32_t version;
-    in >> magic;
     throw_if_io_fail(unmarshall(in, magic));
     if (magic != jyutpingBinaryFormatMagic) {
         throw std::invalid_argument("Invalid jyutping magic.");
@@ -712,5 +711,5 @@ void JyutpingDictionary::addWord(size_t idx, boost::string_view fullJyutping,
     TrieDictionary::addWord(
         idx, boost::string_view(result.data(), result.size()), cost);
 }
-}
-}
+} // namespace jyutping
+} // namespace libime

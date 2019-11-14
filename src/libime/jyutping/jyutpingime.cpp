@@ -145,5 +145,5 @@ float JyutpingIME::minPath() const {
     FCITX_D();
     return d->minPath_;
 }
-}
-}
+} // namespace jyutping
+} // namespace libime

@@ -98,57 +98,58 @@ class CandidateList;
 
 class JyutpingEngine final : public InputMethodEngine {
 public:
-  JyutpingEngine(Instance *instance);
-  ~JyutpingEngine();
-  Instance *instance() { return instance_; }
-  void activate(const InputMethodEntry &entry,
-                InputContextEvent &event) override;
-  void deactivate(const InputMethodEntry &entry,
+    JyutpingEngine(Instance *instance);
+    ~JyutpingEngine();
+    Instance *instance() { return instance_; }
+    void activate(const InputMethodEntry &entry,
                   InputContextEvent &event) override;
-  void keyEvent(const InputMethodEntry &entry, KeyEvent &keyEvent) override;
-  void reloadConfig() override;
-  void reset(const InputMethodEntry &entry, InputContextEvent &event) override;
-  void doReset(InputContext *ic);
-  void save() override;
-  auto &factory() { return factory_; }
+    void deactivate(const InputMethodEntry &entry,
+                    InputContextEvent &event) override;
+    void keyEvent(const InputMethodEntry &entry, KeyEvent &keyEvent) override;
+    void reloadConfig() override;
+    void reset(const InputMethodEntry &entry,
+               InputContextEvent &event) override;
+    void doReset(InputContext *ic);
+    void save() override;
+    auto &factory() { return factory_; }
 
-  const Configuration *getConfig() const override { return &config_; }
-  void setConfig(const RawConfig &config) override {
-    config_.load(config, true);
-    safeSaveAsIni(config_, "conf/jyutping.conf");
-    reloadConfig();
-  }
+    const Configuration *getConfig() const override { return &config_; }
+    void setConfig(const RawConfig &config) override {
+        config_.load(config, true);
+        safeSaveAsIni(config_, "conf/jyutping.conf");
+        reloadConfig();
+    }
 
-  libime::jyutping::JyutpingIME *ime() { return ime_.get(); }
+    libime::jyutping::JyutpingIME *ime() { return ime_.get(); }
 
-  void initPredict(InputContext *ic);
-  void updatePredict(InputContext *ic);
-  std::unique_ptr<CandidateList>
-  predictCandidateList(const std::vector<std::string> &words);
-  void updateUI(InputContext *inputContext);
+    void initPredict(InputContext *ic);
+    void updatePredict(InputContext *ic);
+    std::unique_ptr<CandidateList>
+    predictCandidateList(const std::vector<std::string> &words);
+    void updateUI(InputContext *inputContext);
 
 private:
-  Instance *instance_;
-  JyutpingEngineConfig config_;
-  std::unique_ptr<libime::jyutping::JyutpingIME> ime_;
-  KeyList selectionKeys_;
-  FactoryFor<JyutpingState> factory_;
-  SimpleAction predictionAction_;
-  libime::Prediction prediction_;
+    Instance *instance_;
+    JyutpingEngineConfig config_;
+    std::unique_ptr<libime::jyutping::JyutpingIME> ime_;
+    KeyList selectionKeys_;
+    FactoryFor<JyutpingState> factory_;
+    SimpleAction predictionAction_;
+    libime::Prediction prediction_;
 
-  FCITX_ADDON_DEPENDENCY_LOADER(quickphrase, instance_->addonManager());
-  FCITX_ADDON_DEPENDENCY_LOADER(chttrans, instance_->addonManager());
-  FCITX_ADDON_DEPENDENCY_LOADER(fullwidth, instance_->addonManager());
-  FCITX_ADDON_DEPENDENCY_LOADER(punctuation, instance_->addonManager());
-  FCITX_ADDON_DEPENDENCY_LOADER(notifications, instance_->addonManager());
-  FCITX_ADDON_DEPENDENCY_LOADER(spell, instance_->addonManager());
+    FCITX_ADDON_DEPENDENCY_LOADER(quickphrase, instance_->addonManager());
+    FCITX_ADDON_DEPENDENCY_LOADER(chttrans, instance_->addonManager());
+    FCITX_ADDON_DEPENDENCY_LOADER(fullwidth, instance_->addonManager());
+    FCITX_ADDON_DEPENDENCY_LOADER(punctuation, instance_->addonManager());
+    FCITX_ADDON_DEPENDENCY_LOADER(notifications, instance_->addonManager());
+    FCITX_ADDON_DEPENDENCY_LOADER(spell, instance_->addonManager());
 };
 
 class JyutpingEngineFactory : public AddonFactory {
 public:
-  AddonInstance *create(AddonManager *manager) override {
-    return new JyutpingEngine(manager->instance());
-  }
+    AddonInstance *create(AddonManager *manager) override {
+        return new JyutpingEngine(manager->instance());
+    }
 };
 } // namespace fcitx
 

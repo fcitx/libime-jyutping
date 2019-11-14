@@ -53,18 +53,22 @@ int main() {
                 static_cast<char>(JyutpingFinal::IN),
                 static_cast<char>(JyutpingInitial::H),
                 static_cast<char>(JyutpingFinal::AU)};
-    dict.matchWords(c, 2, [c](boost::string_view encodedJyutping,
-                              boost::string_view hanzi, float cost) {
-        std::cout << JyutpingEncoder::decodeFullJyutping(encodedJyutping) << " "
-                  << hanzi << " " << cost << std::endl;
-        return true;
-    });
-    dict.matchWords(c + 2, 2, [c](boost::string_view encodedJyutping,
-                                  boost::string_view hanzi, float cost) {
-        std::cout << JyutpingEncoder::decodeFullJyutping(encodedJyutping) << " "
-                  << hanzi << " " << cost << std::endl;
-        return true;
-    });
+    dict.matchWords(c, 2,
+                    [c](boost::string_view encodedJyutping,
+                        boost::string_view hanzi, float cost) {
+                        std::cout << JyutpingEncoder::decodeFullJyutping(
+                                         encodedJyutping)
+                                  << " " << hanzi << " " << cost << std::endl;
+                        return true;
+                    });
+    dict.matchWords(c + 2, 2,
+                    [c](boost::string_view encodedJyutping,
+                        boost::string_view hanzi, float cost) {
+                        std::cout << JyutpingEncoder::decodeFullJyutping(
+                                         encodedJyutping)
+                                  << " " << hanzi << " " << cost << std::endl;
+                        return true;
+                    });
 
     auto graph = JyutpingEncoder::parseUserJyutping("jinhau", true);
     dict.matchPrefix(graph,

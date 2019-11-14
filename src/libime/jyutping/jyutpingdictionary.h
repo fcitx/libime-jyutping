@@ -38,40 +38,41 @@ using JyutpingTrie = typename TrieDictionary::TrieType;
 
 class LIBIMEJYUTPING_EXPORT JyutpingDictionary : public TrieDictionary {
 public:
-  static const size_t SystemDict = 0;
-  static const size_t UserDict = 1;
-  explicit JyutpingDictionary();
-  ~JyutpingDictionary();
+    static const size_t SystemDict = 0;
+    static const size_t UserDict = 1;
+    explicit JyutpingDictionary();
+    ~JyutpingDictionary();
 
-  // Load dicitonary for a specific dict.
-  void load(size_t idx, std::istream &in, JyutpingDictFormat format);
-  void load(size_t idx, const char *filename, JyutpingDictFormat format);
+    // Load dicitonary for a specific dict.
+    void load(size_t idx, std::istream &in, JyutpingDictFormat format);
+    void load(size_t idx, const char *filename, JyutpingDictFormat format);
 
-  // Match the word by encoded jyutping.
-  void matchWords(const char *data, size_t size,
-                  JyutpingMatchCallback callback) const;
+    // Match the word by encoded jyutping.
+    void matchWords(const char *data, size_t size,
+                    JyutpingMatchCallback callback) const;
 
-  void save(size_t idx, const char *filename, JyutpingDictFormat format);
-  void save(size_t idx, std::ostream &out, JyutpingDictFormat format);
+    void save(size_t idx, const char *filename, JyutpingDictFormat format);
+    void save(size_t idx, std::ostream &out, JyutpingDictFormat format);
 
-  void addWord(size_t idx, boost::string_view fullJyutping,
-               boost::string_view hanzi, float cost = 0.0f);
+    void addWord(size_t idx, boost::string_view fullJyutping,
+                 boost::string_view hanzi, float cost = 0.0f);
 
-  using dictionaryChanged = TrieDictionary::dictionaryChanged;
+    using dictionaryChanged = TrieDictionary::dictionaryChanged;
 
 protected:
-  void
-  matchPrefixImpl(const SegmentGraph &graph, const GraphMatchCallback &callback,
-                  const std::unordered_set<const SegmentGraphNode *> &ignore,
-                  void *helper) const override;
+    void
+    matchPrefixImpl(const SegmentGraph &graph,
+                    const GraphMatchCallback &callback,
+                    const std::unordered_set<const SegmentGraphNode *> &ignore,
+                    void *helper) const override;
 
 private:
-  void loadText(size_t idx, std::istream &in);
-  void loadBinary(size_t idx, std::istream &in);
-  void saveText(size_t idx, std::ostream &out);
+    void loadText(size_t idx, std::istream &in);
+    void loadBinary(size_t idx, std::istream &in);
+    void saveText(size_t idx, std::ostream &out);
 
-  std::unique_ptr<JyutpingDictionaryPrivate> d_ptr;
-  FCITX_DECLARE_PRIVATE(JyutpingDictionary);
+    std::unique_ptr<JyutpingDictionaryPrivate> d_ptr;
+    FCITX_DECLARE_PRIVATE(JyutpingDictionary);
 };
 
 } // namespace jyutping

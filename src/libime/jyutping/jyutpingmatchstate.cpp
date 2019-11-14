@@ -61,4 +61,4 @@ void JyutpingMatchState::discardDictionary(size_t idx) {
 }
 
 } // namespace jyutping
-}
+} // namespace libime

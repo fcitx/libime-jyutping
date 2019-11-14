@@ -740,6 +740,6 @@ void JyutpingEngine::save() {
             }
         });
 }
-}
+} // namespace fcitx
 
 FCITX_ADDON_FACTORY(fcitx::JyutpingEngineFactory)

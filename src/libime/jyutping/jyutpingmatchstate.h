@@ -35,25 +35,25 @@ class JyutpingContext;
 
 // Provides caching mechanism used by JyutpingContext.
 class LIBIMEJYUTPING_EXPORT JyutpingMatchState {
-  friend class JyutpingMatchContext;
+    friend class JyutpingMatchContext;
 
 public:
-  JyutpingMatchState(JyutpingContext *context);
-  ~JyutpingMatchState();
+    JyutpingMatchState(JyutpingContext *context);
+    ~JyutpingMatchState();
 
-  // Invalidate everything in the state.
-  void clear();
+    // Invalidate everything in the state.
+    void clear();
 
-  // Invalidate a set of node, usually caused by the change of user input.
-  void discardNode(const std::unordered_set<const SegmentGraphNode *> &node);
+    // Invalidate a set of node, usually caused by the change of user input.
+    void discardNode(const std::unordered_set<const SegmentGraphNode *> &node);
 
-  // Invalidate a whole dictionary, usually caused by the change to the
-  // dictionary.
-  void discardDictionary(size_t idx);
+    // Invalidate a whole dictionary, usually caused by the change to the
+    // dictionary.
+    void discardDictionary(size_t idx);
 
 private:
-  std::unique_ptr<JyutpingMatchStatePrivate> d_ptr;
-  FCITX_DECLARE_PRIVATE(JyutpingMatchState);
+    std::unique_ptr<JyutpingMatchStatePrivate> d_ptr;
+    FCITX_DECLARE_PRIVATE(JyutpingMatchState);
 };
 
 } // namespace jyutping

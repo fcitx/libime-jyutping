@@ -39,35 +39,35 @@ class JyutpingDictionary;
 /// \brief Provides shared data for JyutpingContext.
 class LIBIMEJYUTPING_EXPORT JyutpingIME : public fcitx::ConnectableObject {
 public:
-  JyutpingIME(std::unique_ptr<JyutpingDictionary> dict,
-              std::unique_ptr<UserLanguageModel> model);
-  virtual ~JyutpingIME();
+    JyutpingIME(std::unique_ptr<JyutpingDictionary> dict,
+                std::unique_ptr<UserLanguageModel> model);
+    virtual ~JyutpingIME();
 
-  bool innerSegment() const;
-  void setInnerSegment(bool inner);
-  size_t nbest() const;
-  void setNBest(size_t n);
-  size_t beamSize() const;
-  void setBeamSize(size_t n);
-  size_t frameSize() const;
-  void setFrameSize(size_t n);
-  void setScoreFilter(float maxDistance = std::numeric_limits<float>::max(),
-                      float minPath = -std::numeric_limits<float>::max());
+    bool innerSegment() const;
+    void setInnerSegment(bool inner);
+    size_t nbest() const;
+    void setNBest(size_t n);
+    size_t beamSize() const;
+    void setBeamSize(size_t n);
+    size_t frameSize() const;
+    void setFrameSize(size_t n);
+    void setScoreFilter(float maxDistance = std::numeric_limits<float>::max(),
+                        float minPath = -std::numeric_limits<float>::max());
 
-  float maxDistance() const;
-  float minPath() const;
+    float maxDistance() const;
+    float minPath() const;
 
-  JyutpingDictionary *dict();
-  const JyutpingDictionary *dict() const;
-  const JyutpingDecoder *decoder() const;
-  UserLanguageModel *model();
-  const UserLanguageModel *model() const;
+    JyutpingDictionary *dict();
+    const JyutpingDictionary *dict() const;
+    const JyutpingDecoder *decoder() const;
+    UserLanguageModel *model();
+    const UserLanguageModel *model() const;
 
-  FCITX_DECLARE_SIGNAL(JyutpingIME, optionChanged, void());
+    FCITX_DECLARE_SIGNAL(JyutpingIME, optionChanged, void());
 
 private:
-  std::unique_ptr<JyutpingIMEPrivate> d_ptr;
-  FCITX_DECLARE_PRIVATE(JyutpingIME);
+    std::unique_ptr<JyutpingIMEPrivate> d_ptr;
+    FCITX_DECLARE_PRIVATE(JyutpingIME);
 };
 
 } // namespace jyutping
