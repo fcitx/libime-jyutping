@@ -30,7 +30,7 @@ class JyutpingLatticeNodePrivate;
 
 class LIBIMEJYUTPING_EXPORT JyutpingLatticeNode : public LatticeNode {
 public:
-    JyutpingLatticeNode(boost::string_view word, WordIndex idx,
+    JyutpingLatticeNode(std::string_view word, WordIndex idx,
                         SegmentGraphPath path, const State &state, float cost,
                         std::unique_ptr<JyutpingLatticeNodePrivate> data);
     virtual ~JyutpingLatticeNode();
@@ -50,7 +50,7 @@ public:
 protected:
     LatticeNode *createLatticeNodeImpl(const SegmentGraphBase &graph,
                                        const LanguageModelBase *model,
-                                       boost::string_view word, WordIndex idx,
+                                       std::string_view word, WordIndex idx,
                                        SegmentGraphPath path,
                                        const State &state, float cost,
                                        std::unique_ptr<LatticeNodeData> data,

@@ -55,7 +55,7 @@ int main() {
         auto fullJyutping = JyutpingEncoder::initialToString(initial) +
                             JyutpingEncoder::finalToString(final);
         // make sure valid item is unique
-        auto result = seen.insert(jyutping.to_string());
+        auto result = seen.insert(jyutping);
         FCITX_ASSERT(result.second);
 
         int16_t encode =

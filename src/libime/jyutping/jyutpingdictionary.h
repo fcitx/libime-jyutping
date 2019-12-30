@@ -29,8 +29,8 @@ enum class JyutpingDictFormat { Text, Binary };
 
 class JyutpingDictionaryPrivate;
 
-typedef std::function<bool(boost::string_view encodedJyutping,
-                           boost::string_view hanzi, float cost)>
+typedef std::function<bool(std::string_view encodedJyutping,
+                           std::string_view hanzi, float cost)>
     JyutpingMatchCallback;
 class JyutpingDictionary;
 
@@ -54,8 +54,8 @@ public:
     void save(size_t idx, const char *filename, JyutpingDictFormat format);
     void save(size_t idx, std::ostream &out, JyutpingDictFormat format);
 
-    void addWord(size_t idx, boost::string_view fullJyutping,
-                 boost::string_view hanzi, float cost = 0.0f);
+    void addWord(size_t idx, std::string_view fullJyutping,
+                 std::string_view hanzi, float cost = 0.0f);
 
     using dictionaryChanged = TrieDictionary::dictionaryChanged;
 

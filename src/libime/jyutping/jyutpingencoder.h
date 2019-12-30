@@ -155,20 +155,20 @@ using MatchedJyutpingSyllables = std::vector<
 
 class LIBIMEJYUTPING_EXPORT JyutpingEncoder {
 public:
-    static SegmentGraph parseUserJyutping(boost::string_view jyutping,
+    static SegmentGraph parseUserJyutping(std::string jyutping,
                                           bool inner = true);
-    static std::vector<char> encodeOneUserJyutping(boost::string_view jyutping);
+    static std::vector<char> encodeOneUserJyutping(std::string jyutping);
     static bool isValidUserJyutping(const char *data, size_t size);
 
-    static std::vector<char> encodeFullJyutping(boost::string_view jyutping);
+    static std::vector<char> encodeFullJyutping(std::string_view jyutping);
 
     static std::string decodeFullJyutping(const char *data, size_t size);
-    static std::string decodeFullJyutping(boost::string_view data) {
+    static std::string decodeFullJyutping(std::string_view data) {
         return decodeFullJyutping(data.data(), data.size());
     }
 
     static MatchedJyutpingSyllables
-    stringToSyllables(boost::string_view jyutping);
+    stringToSyllables(std::string_view jyutping);
 
     static const std::string &initialToString(JyutpingInitial initial);
     static JyutpingInitial stringToInitial(const std::string &str);

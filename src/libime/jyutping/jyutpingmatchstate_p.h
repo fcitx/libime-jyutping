@@ -51,10 +51,10 @@ struct MatchedJyutpingTrieNodes {
 // the
 // adjustment score.
 struct JyutpingMatchResult {
-    JyutpingMatchResult(boost::string_view s, float value,
-                        boost::string_view encodedJyutping)
+    JyutpingMatchResult(std::string_view s, float value,
+                        std::string_view encodedJyutping)
         : word_(s, InvalidWordIndex), value_(value),
-          encodedJyutping_(encodedJyutping.to_string()) {}
+          encodedJyutping_(encodedJyutping) {}
     WordNode word_;
     float value_;
     std::string encodedJyutping_;

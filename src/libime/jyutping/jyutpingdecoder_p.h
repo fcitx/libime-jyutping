@@ -27,8 +27,8 @@ namespace jyutping {
 
 class JyutpingLatticeNodePrivate : public LatticeNodeData {
 public:
-    JyutpingLatticeNodePrivate(boost::string_view encodedJyutping)
-        : encodedJyutping_(encodedJyutping.to_string()) {}
+    JyutpingLatticeNodePrivate(std::string_view encodedJyutping)
+        : encodedJyutping_(encodedJyutping) {}
 
     std::string encodedJyutping_;
 };

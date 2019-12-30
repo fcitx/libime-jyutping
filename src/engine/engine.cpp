@@ -53,7 +53,7 @@ FCITX_DEFINE_LOG_CATEGORY(jyutping, "jyutping");
 
 #define PINYIN_DEBUG() FCITX_LOGC(jyutping, Debug)
 
-bool consumePreifx(boost::string_view &view, boost::string_view prefix) {
+bool consumePreifx(std::string_view &view, std::string_view prefix) {
     if (boost::starts_with(view, prefix)) {
         view.remove_prefix(prefix.size());
         return true;

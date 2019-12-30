@@ -83,11 +83,11 @@ static const auto finalMap = makeBimap<JyutpingFinal, std::string>({
 static const int maxJyutpingLength = 6;
 
 template <typename Iter>
-std::pair<boost::string_view, bool> longestMatch(Iter iter, Iter end) {
+std::pair<std::string_view, bool> longestMatch(Iter iter, Iter end) {
     if (std::distance(iter, end) > maxJyutpingLength) {
         end = iter + maxJyutpingLength;
     }
-    auto range = boost::string_view(&*iter, std::distance(iter, end));
+    auto range = std::string_view(&*iter, std::distance(iter, end));
     auto &map = getJyutpingMap();
     for (; range.size(); range.remove_suffix(1)) {
         auto iterPair = map.equal_range(range);
@@ -96,7 +96,7 @@ std::pair<boost::string_view, bool> longestMatch(Iter iter, Iter end) {
             return std::make_pair(range, (range != "m" && range != "ng"));
         }
         if (range.size() <= 2) {
-            auto iter = initialMap.right.find(range.to_string());
+            auto iter = initialMap.right.find(std::string{range});
             if (iter != initialMap.right.end()) {
                 return std::make_pair(range, false);
             }
@@ -104,7 +104,7 @@ std::pair<boost::string_view, bool> longestMatch(Iter iter, Iter end) {
     }
 
     if (!range.size()) {
-        range = boost::string_view(&*iter, 1);
+        range = std::string_view(&*iter, 1);
     }
 
     return std::make_pair(range, false);
@@ -115,9 +115,9 @@ std::string JyutpingSyllable::toString() const {
            JyutpingEncoder::finalToString(final_);
 }
 
-SegmentGraph JyutpingEncoder::parseUserJyutping(boost::string_view userJyutping,
+SegmentGraph JyutpingEncoder::parseUserJyutping(std::string userJyutping,
                                                 bool inner) {
-    SegmentGraph result(userJyutping.to_string());
+    SegmentGraph result(std::move(userJyutping));
     const auto &jyutping = result.data();
     auto end = jyutping.end();
     std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> q;
@@ -143,7 +143,7 @@ SegmentGraph JyutpingEncoder::parseUserJyutping(boost::string_view userJyutping,
             }
             continue;
         }
-        boost::string_view str;
+        std::string_view str;
         bool isCompleteJyutping;
         std::tie(str, isCompleteJyutping) = longestMatch(iter, end);
 
@@ -194,7 +194,7 @@ SegmentGraph JyutpingEncoder::parseUserJyutping(boost::string_view userJyutping,
                 if (nextSize[i] >= 4 && inner) {
                     auto &innerSegments = getInnerSegment();
                     auto iter = innerSegments.find(
-                        str.substr(0, nextSize[i]).to_string());
+                        std::string{str.substr(0, nextSize[i])});
                     if (iter != innerSegments.end()) {
                         result.addNext(top, top + iter->second.first.size());
                         result.addNext(top + iter->second.first.size(),
@@ -207,12 +207,11 @@ SegmentGraph JyutpingEncoder::parseUserJyutping(boost::string_view userJyutping,
     return result;
 }
 
-std::vector<char>
-JyutpingEncoder::encodeOneUserJyutping(boost::string_view jyutping) {
+std::vector<char> JyutpingEncoder::encodeOneUserJyutping(std::string jyutping) {
     if (jyutping.empty()) {
         return {};
     }
-    auto graph = parseUserJyutping(jyutping, false);
+    auto graph = parseUserJyutping(std::move(jyutping), false);
     std::vector<char> result;
     const SegmentGraphNode *node = &graph.start(), *prev = nullptr;
     while (node->nextSize()) {
@@ -361,7 +360,7 @@ static void getFuzzy(
 }
 
 MatchedJyutpingSyllables
-JyutpingEncoder::stringToSyllables(boost::string_view jyutping) {
+JyutpingEncoder::stringToSyllables(std::string_view jyutping) {
     std::vector<
         std::pair<JyutpingInitial, std::vector<std::pair<JyutpingFinal, bool>>>>
         result;
@@ -376,7 +375,7 @@ JyutpingEncoder::stringToSyllables(boost::string_view jyutping) {
         }
     }
 
-    auto iter = initialMap.right.find(jyutping.to_string());
+    auto iter = initialMap.right.find(std::string{jyutping});
     if (initialMap.right.end() != iter) {
         getFuzzy(result, {iter->second, JyutpingFinal::Invalid});
     }
@@ -393,7 +392,7 @@ JyutpingEncoder::stringToSyllables(boost::string_view jyutping) {
 }
 
 std::vector<char>
-JyutpingEncoder::encodeFullJyutping(boost::string_view jyutping) {
+JyutpingEncoder::encodeFullJyutping(std::string_view jyutping) {
     std::vector<std::string> jyutpings;
     boost::split(jyutpings, jyutping, boost::is_any_of("'"));
     std::vector<char> result;
@@ -404,7 +403,7 @@ JyutpingEncoder::encodeFullJyutping(boost::string_view jyutping) {
         auto iter = map.find(singleJyutping);
         if (iter == map.end()) {
             throw std::invalid_argument("invalid full jyutping: " +
-                                        jyutping.to_string());
+                                        std::string{jyutping});
         }
         result[idx++] = static_cast<char>(iter->initial());
         result[idx++] = static_cast<char>(iter->final());

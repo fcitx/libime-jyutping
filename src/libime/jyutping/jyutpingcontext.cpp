@@ -174,7 +174,7 @@ void JyutpingContext::select(size_t idx) {
             static_cast<const JyutpingLatticeNode *>(p)->encodedJyutping());
     }
     // add some special code for handling separator at the end
-    auto remain = boost::string_view(userInput()).substr(selectedLength());
+    auto remain = std::string_view(userInput()).substr(selectedLength());
     if (!remain.empty()) {
         if (std::all_of(remain.begin(), remain.end(),
                         [](char c) { return c == '\''; })) {
@@ -249,8 +249,7 @@ void JyutpingContext::update() {
             }
         }
         SegmentGraph newGraph = JyutpingEncoder::parseUserJyutping(
-            boost::string_view(userInput()).substr(start),
-            d->ime_->innerSegment());
+            userInput().substr(start), d->ime_->innerSegment());
         d->segs_.merge(
             newGraph,
             [d](const std::unordered_set<const SegmentGraphNode *> &nodes) {

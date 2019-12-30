@@ -24,7 +24,7 @@ namespace libime {
 namespace jyutping {
 
 JyutpingLatticeNode::JyutpingLatticeNode(
-    boost::string_view word, WordIndex idx, SegmentGraphPath path,
+    std::string_view word, WordIndex idx, SegmentGraphPath path,
     const State &state, float cost,
     std::unique_ptr<JyutpingLatticeNodePrivate> data)
     : LatticeNode(word, idx, std::move(path), state, cost),
@@ -42,7 +42,7 @@ const std::string &JyutpingLatticeNode::encodedJyutping() const {
 
 LatticeNode *JyutpingDecoder::createLatticeNodeImpl(
     const SegmentGraphBase &graph, const LanguageModelBase *model,
-    boost::string_view word, WordIndex idx, SegmentGraphPath path,
+    std::string_view word, WordIndex idx, SegmentGraphPath path,
     const State &state, float cost, std::unique_ptr<LatticeNodeData> data,
     bool onlyPath) const {
     std::unique_ptr<JyutpingLatticeNodePrivate> jyutpingData(
