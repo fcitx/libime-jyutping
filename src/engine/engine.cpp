@@ -163,7 +163,7 @@ JyutpingEngine::predictCandidateList(const std::vector<std::string> &words) {
     }
     auto candidateList = std::make_unique<CommonCandidateList>();
     for (const auto &word : words) {
-        candidateList->append(new JyutpingPredictCandidateWord(this, word));
+        candidateList->append<JyutpingPredictCandidateWord>(this, word);
     }
     candidateList->setSelectionKey(selectionKeys_);
     candidateList->setPageSize(*config_.pageSize);
@@ -269,8 +269,8 @@ void JyutpingEngine::updateUI(InputContext *inputContext) {
 
             for (const auto &candidate : candidates) {
                 auto candidateString = candidate.toString();
-                candidateList->append(new JyutpingCandidateWord(
-                    this, Text(std::move(candidateString)), idx));
+                candidateList->append<JyutpingCandidateWord>(
+                    this, Text(std::move(candidateString)), idx);
                 idx++;
             }
             int engNess;
@@ -287,8 +287,9 @@ void JyutpingEngine::updateUI(InputContext *inputContext) {
                         actualIdx = candidateList->totalSize();
                     }
 
-                    candidateList->insert(actualIdx,
-                                          new SpellCandidateWord(this, result));
+                    candidateList->insert(
+                        actualIdx,
+                        std::make_unique<SpellCandidateWord>(this, result));
                     idx++;
                 }
             }
@@ -469,7 +470,7 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
         if (idx >= 0) {
             event.filterAndAccept();
             if (idx < candidateList->size()) {
-                candidateList->candidate(idx)->select(inputContext);
+                candidateList->candidate(idx).select(inputContext);
             }
             return;
         }
@@ -603,7 +604,7 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
                 inputContext->inputPanel()
                     .candidateList()
                     ->candidate(idx)
-                    ->select(inputContext);
+                    .select(inputContext);
                 return;
             }
         }
@@ -642,10 +643,8 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
         if (c) {
             if (inputContext->inputPanel().candidateList() &&
                 inputContext->inputPanel().candidateList()->size()) {
-                inputContext->inputPanel()
-                    .candidateList()
-                    ->candidate(0)
-                    ->select(inputContext);
+                inputContext->inputPanel().candidateList()->candidate(0).select(
+                    inputContext);
             }
             auto punc = punctuation()->call<IPunctuation::pushPunctuation>(
                 "zh_HK", inputContext, c);
