@@ -73,7 +73,7 @@ public:
     State state() const;
 
 protected:
-    void typeImpl(const char *s, size_t length) override;
+    bool typeImpl(const char *s, size_t length) override;
 
 private:
     void update();

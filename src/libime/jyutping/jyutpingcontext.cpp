@@ -70,10 +70,13 @@ JyutpingContext::JyutpingContext(JyutpingIME *ime)
 
 JyutpingContext::~JyutpingContext() {}
 
-void JyutpingContext::typeImpl(const char *s, size_t length) {
-    cancelTill(cursor());
-    InputBuffer::typeImpl(s, length);
-    update();
+bool JyutpingContext::typeImpl(const char *s, size_t length) {
+    bool changed = cancelTill(cursor());
+    changed = InputBuffer::typeImpl(s, length) || changed;
+    if (changed) {
+        update();
+    }
+    return changed;
 }
 
 void JyutpingContext::erase(size_t from, size_t to) {
