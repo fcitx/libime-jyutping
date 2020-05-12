@@ -155,7 +155,9 @@ JyutpingEngine::predictCandidateList(const std::vector<std::string> &words) {
     }
     candidateList->setSelectionKey(selectionKeys_);
     candidateList->setPageSize(*config_.pageSize);
-    candidateList->setGlobalCursorIndex(0);
+    if (candidateList->size()) {
+        candidateList->setGlobalCursorIndex(0);
+    }
     return candidateList;
 }
 
@@ -283,7 +285,9 @@ void JyutpingEngine::updateUI(InputContext *inputContext) {
             }
 
             candidateList->setSelectionKey(selectionKeys_);
-            candidateList->setGlobalCursorIndex(0);
+            if (candidateList->size()) {
+                candidateList->setGlobalCursorIndex(0);
+            }
             inputPanel.setCandidateList(std::move(candidateList));
         }
         inputPanel.setClientPreedit(
