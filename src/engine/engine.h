@@ -9,6 +9,7 @@
 
 #include <fcitx-config/configuration.h>
 #include <fcitx-config/iniparser.h>
+#include <fcitx-utils/i18n.h>
 #include <fcitx/action.h>
 #include <fcitx/addonfactory.h>
 #include <fcitx/addonmanager.h>
@@ -136,6 +137,7 @@ private:
 class JyutpingEngineFactory : public AddonFactory {
 public:
     AddonInstance *create(AddonManager *manager) override {
+        registerDomain("fcitx5-jyutping", FCITX_INSTALL_LOCALEDIR);
         return new JyutpingEngine(manager->instance());
     }
 };

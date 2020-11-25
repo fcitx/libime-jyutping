@@ -8,6 +8,8 @@ target_compile_definitions(jyutping
   PRIVATE LIBIME_INSTALL_PKGDATADIR=\"${LIBIME_INSTALL_PKGDATADIR}\"
           FCITX_GETTEXT_DOMAIN=\"fcitx5-jyutping\"
 )
+fcitx5_add_i18n_definition(TARGETS jyutping)
+
 install(TARGETS jyutping DESTINATION "${CMAKE_INSTALL_LIBDIR}/fcitx5")
 fcitx5_translate_desktop_file(jyutping.conf.in jyutping.conf)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/jyutping.conf" DESTINATION "${CMAKE_INSTALL_DATADIR}/fcitx5/inputmethod")
