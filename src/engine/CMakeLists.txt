@@ -15,7 +15,7 @@ fcitx5_translate_desktop_file(jyutping-addon.conf.in jyutping-addon.conf)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/jyutping-addon.conf" RENAME jyutping.conf DESTINATION "${FCITX_INSTALL_PKGDATADIR}/addon")
 
 
-fcitx5_translate_desktop_file(org.fcitx.fcitx5-jyutping.metainfo.xml.in
-                              org.fcitx.fcitx5-jyutping.metainfo.xml XML)
+fcitx5_translate_desktop_file(org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in
+                              org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml XML)
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/org.fcitx.fcitx5-jyutping.metainfo.xml" DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml" DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)
