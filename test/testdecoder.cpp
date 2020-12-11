@@ -14,6 +14,7 @@
 #include "libime/jyutping/jyutpingdictionary.h"
 #include "libime/jyutping/jyutpingencoder.h"
 #include "testdir.h"
+#include <limits>
 #include <fcitx-utils/log.h>
 
 using namespace libime;
