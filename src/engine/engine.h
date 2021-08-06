@@ -22,27 +22,6 @@
 
 namespace fcitx {
 
-FCITX_CONFIG_ENUM(ShuangpinProfileEnum, Ziranma, MS, Ziguang, ABC,
-                  Zhongwenzhixing, JyutpingJiajia, Xiaohe, Custom)
-
-FCITX_CONFIGURATION(FuzzyConfig,
-                    Option<bool> ue{this, "VE_UE", "ue -> ve", true};
-                    Option<bool> ng{this, "NG_GN", "gn -> ng", true};
-                    Option<bool> inner{this, "Inner",
-                                       "Inner Segment (xian -> xi'an)", true};
-                    Option<bool> v{this, "V_U", "u <-> v", false};
-                    Option<bool> an{this, "AN_ANG", "an <-> ang", false};
-                    Option<bool> en{this, "EN_ENG", "en <-> eng", false};
-                    Option<bool> ian{this, "IAN_IANG", "ian <-> iang", false};
-                    Option<bool> in{this, "IN_ING", "in <-> ing", false};
-                    Option<bool> ou{this, "U_OU", "ue -> ve", false};
-                    Option<bool> uan{this, "UAN_UANG", "ue -> ve", false};
-                    Option<bool> c{this, "C_CH", "ue -> ve", false};
-                    Option<bool> f{this, "F_H", "ue -> ve", false};
-                    Option<bool> l{this, "L_N", "ue -> ve", false};
-                    Option<bool> s{this, "S_SH", "ue -> ve", false};
-                    Option<bool> z{this, "Z_ZH", "ue -> ve", false};)
-
 FCITX_CONFIGURATION(
     JyutpingEngineConfig,
     Option<int, IntConstrain> pageSize{this, "PageSize", "Page size", 5,
