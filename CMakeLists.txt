@@ -28,10 +28,10 @@ find_package(Fcitx5Utils REQUIRED)
 include("${FCITX_INSTALL_CMAKECONFIG_DIR}/Fcitx5Utils/Fcitx5CompilerSettings.cmake")
 
 find_package(Boost 1.61 REQUIRED COMPONENTS iostreams)
+find_package(LibIMECore REQUIRED)
 set(LIBIME_INSTALL_PKGDATADIR "${CMAKE_INSTALL_FULL_DATADIR}/libime")
 set(LIBIME_INSTALL_LIBDATADIR "${CMAKE_INSTALL_FULL_LIBDIR}/libime")
 
-find_package(LibIMECore REQUIRED)
 find_package(Gettext REQUIRED)
 find_package(Fcitx5Module REQUIRED Spell Punctuation QuickPhrase)
 
