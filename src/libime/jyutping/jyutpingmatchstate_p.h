@@ -74,6 +74,20 @@ struct MatchedJyutpingPath {
     SegmentGraphPath path_;
 };
 
+// This need to be keep sync with JyutpingSegmentGraphPathHasher
+class JyutpingStringHasher {
+public:
+  size_t operator()(const std::string &s) const {
+    boost::hash<char> hasher;
+
+    size_t seed = 0;
+    for (char c : s) {
+      boost::hash_combine(seed, hasher(c));
+    }
+    return seed;
+  }
+};
+
 // A list of all search paths
 typedef std::vector<MatchedJyutpingPath> MatchedJyutpingPaths;
 
@@ -85,13 +99,15 @@ typedef std::unordered_map<const SegmentGraphNode *, MatchedJyutpingPaths>
 // JyutpingTrieNode
 typedef std::unordered_map<
     const JyutpingTrie *,
-    LRUCache<std::string, std::shared_ptr<MatchedJyutpingTrieNodes>>>
+    LRUCache<std::string, std::shared_ptr<MatchedJyutpingTrieNodes>,
+             JyutpingStringHasher>>
     JyutpingTrieNodeCache;
 
 // A cache for JyutpingMatchResult.
 typedef std::unordered_map<
     const JyutpingTrie *,
-    LRUCache<std::string, std::vector<JyutpingMatchResult>>>
+    LRUCache<std::string, std::vector<JyutpingMatchResult>,
+             JyutpingStringHasher>>
     JyutpingMatchResultCache;
 
 class JyutpingMatchStatePrivate {
