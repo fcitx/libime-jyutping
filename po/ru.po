@@ -43,8 +43,3 @@ msgstr "Показывать предсказывающие слова"
 #: src/engine/engine.cpp:108
 msgid "{0} ({1})"
 msgstr "{0} ({1})"
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
