@@ -5,8 +5,8 @@ add_library(jyutping MODULE ${JYUTPING_SOURCES})
 target_link_libraries(jyutping Fcitx5::Core Fcitx5::Config Fcitx5::Module::Spell Fcitx5::Module::Punctuation Fcitx5::Module::QuickPhrase LibIME::Jyutping Boost::iostreams)
 set_target_properties(jyutping PROPERTIES PREFIX "")
 target_compile_definitions(jyutping
-  PRIVATE LIBIME_INSTALL_PKGDATADIR=\"${LIBIME_INSTALL_PKGDATADIR}\"
-          FCITX_GETTEXT_DOMAIN=\"fcitx5-jyutping\"
+    PRIVATE LIBIME_JYUTPING_INSTALL_PKGDATADIR=\"${LIBIME_JYUTPING_INSTALL_PKGDATADIR}\"
+            FCITX_GETTEXT_DOMAIN=\"fcitx5-jyutping\"
 )
 fcitx5_add_i18n_definition(TARGETS jyutping)
 

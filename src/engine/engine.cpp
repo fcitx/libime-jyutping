@@ -328,7 +328,7 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
             libime::DefaultLanguageModelResolver::instance()
                 .languageModelFileForLanguage("zh_HK")));
     ime_->dict()->load(libime::jyutping::JyutpingDictionary::SystemDict,
-                       LIBIME_INSTALL_PKGDATADIR "/jyutping.dict",
+                       LIBIME_JYUTPING_INSTALL_PKGDATADIR "/jyutping.dict",
                        libime::jyutping::JyutpingDictFormat::Binary);
     prediction_.setUserLanguageModel(ime_->model());
 
