@@ -77,15 +77,15 @@ struct MatchedJyutpingPath {
 // This need to be keep sync with JyutpingSegmentGraphPathHasher
 class JyutpingStringHasher {
 public:
-  size_t operator()(const std::string &s) const {
-    boost::hash<char> hasher;
+    size_t operator()(const std::string &s) const {
+        boost::hash<char> hasher;
 
-    size_t seed = 0;
-    for (char c : s) {
-      boost::hash_combine(seed, hasher(c));
+        size_t seed = 0;
+        for (char c : s) {
+            boost::hash_combine(seed, hasher(c));
+        }
+        return seed;
     }
-    return seed;
-  }
 };
 
 // A list of all search paths
