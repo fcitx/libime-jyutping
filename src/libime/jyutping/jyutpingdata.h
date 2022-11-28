@@ -19,9 +19,9 @@
 namespace libime {
 namespace jyutping {
 struct JyutpingHash {
-  std::size_t operator()(std::string_view const &val) const {
-    return boost::hash_range(val.begin(), val.end());
-  }
+    std::size_t operator()(std::string_view const &val) const {
+        return boost::hash_range(val.begin(), val.end());
+    }
 };
 
 class JyutpingEntry {
