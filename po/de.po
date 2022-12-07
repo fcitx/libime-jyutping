@@ -3,8 +3,7 @@
 # This file is distributed under the same license as the fcitx5-jyutping package.
 #
 # Translators:
-# csslayer <wengxt@gmail.com>, 2022
-# Dmitry <dmitrydmitry761@gmail.com>, 2022
+# Ettore Atalan <atalanttore@googlemail.com>, 2022
 #
 msgid ""
 msgstr ""
@@ -12,44 +11,42 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2022-12-07 20:25+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
-"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/fcitx/teams/12005/ru/)\n"
-"Language: ru\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, 2022\n"
+"Language-Team: German (https://www.transifex.com/fcitx/teams/12005/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:7
 #: src/engine/jyutping.conf.in:3 src/engine/jyutping-addon.conf.in:3
 msgid "Jyutping"
-msgstr "Ютпхин"
+msgstr ""
 
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:8
 msgid "Jyutping input method"
-msgstr "Метод ввода Ютпхин"
+msgstr ""
 
 #: src/engine/engine.cpp:385
 msgid "Prediction"
-msgstr "Предсказывать"
+msgstr "Vorhersage"
 
 #: src/engine/engine.cpp:660
 msgid "Press %1% for %2%"
-msgstr "Нажмите %1% для %2%"
+msgstr "Drücke %1% für %2%"
 
 #: src/engine/engine.cpp:656
 msgid "Press %1% for %2% and %3% for %4%"
-msgstr "Нажмите %1% для %2% и %3% для %4%"
+msgstr "Drücke %1% für %2% und %3% für %4%"
 
 #: src/engine/engine.cpp:657
 msgid "Return"
-msgstr "Возврат каретки"
+msgstr ""
 
 #: src/engine/engine.cpp:386
 msgid "Show prediction words"
-msgstr "Показывать предсказывающие слова"
+msgstr "Vorhersagewörter anzeigen"
 
 #: src/engine/engine.cpp:95
 msgid "{0} ({1})"
