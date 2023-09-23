@@ -1,7 +1,7 @@
 ecm_setup_version(PROJECT
                   VARIABLE_PREFIX IMEJyutping
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/LibIMEJyutpingConfigVersion.cmake"
-                  SOVERSION 0)
+                  SOVERSION 1)
 
 set(LIBIME_JYUTPING_HDRS
     jyutpingdictionary.h
