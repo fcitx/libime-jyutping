@@ -1,7 +1,7 @@
 [Addon]
 Name=Jyutping
 Category=InputMethod
-Library=jyutping
+Library=libjyutping
 Type=SharedLibrary
 OnDemand=True
 Configurable=True
