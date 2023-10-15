@@ -327,12 +327,25 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
         std::make_unique<libime::UserLanguageModel>(
             libime::DefaultLanguageModelResolver::instance()
                 .languageModelFileForLanguage("zh_HK")));
-    ime_->dict()->load(libime::jyutping::JyutpingDictionary::SystemDict,
-                       LIBIME_JYUTPING_INSTALL_PKGDATADIR "/jyutping.dict",
-                       libime::jyutping::JyutpingDictFormat::Binary);
-    prediction_.setUserLanguageModel(ime_->model());
 
     auto &standardPath = StandardPath::global();
+    auto systemDictFile =
+            standardPath.open(StandardPath::Type::Data, "libime/jyutping.dict", O_RDONLY);
+    if (systemDictFile.isValid()) {
+        boost::iostreams::stream_buffer<
+                boost::iostreams::file_descriptor_source>
+                buffer(systemDictFile.fd(),
+                       boost::iostreams::file_descriptor_flags::never_close_handle);
+        std::istream in(&buffer);
+        ime_->dict()->load(libime::jyutping::JyutpingDictionary::SystemDict, in,
+                           libime::jyutping::JyutpingDictFormat::Binary);
+    } else {
+        ime_->dict()->load(libime::jyutping::JyutpingDictionary::SystemDict,
+                           LIBIME_JYUTPING_INSTALL_PKGDATADIR "/jyutping.dict",
+                           libime::jyutping::JyutpingDictFormat::Binary);
+    }
+    prediction_.setUserLanguageModel(ime_->model());
+
     do {
         auto file = standardPath.openUser(StandardPath::Type::PkgData,
                                           "jyutping/user.dict", O_RDONLY);
