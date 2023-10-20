@@ -25,6 +25,14 @@ include(ECMGeneratePkgConfigFile)
 include(ECMUninstallTarget)
 
 find_package(Fcitx5Utils REQUIRED)
+find_package(fmt REQUIRED)
+
+if (TARGET fmt::fmt-header-only)
+    set(FMT_TARGET fmt::fmt-header-only)
+else()
+    set(FMT_TARGET fmt::fmt)
+endif ()
+
 include("${FCITX_INSTALL_CMAKECONFIG_DIR}/Fcitx5Utils/Fcitx5CompilerSettings.cmake")
 
 find_package(Boost 1.61 REQUIRED COMPONENTS iostreams)
