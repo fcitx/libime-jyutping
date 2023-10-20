@@ -35,7 +35,7 @@ target_include_directories(IMEJyutping PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_FULL_INCLUDEDIR}/LibIME>)
 
-target_link_libraries(IMEJyutping PUBLIC Fcitx5::Utils Boost::boost LibIME::Core)
+target_link_libraries(IMEJyutping PUBLIC Fcitx5::Utils Boost::boost LibIME::Core PRIVATE Boost::iostreams PkgConfig::ZSTD)
 
 install(TARGETS IMEJyutping EXPORT LibIMEJyutpingTargets LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
 install(FILES ${LIBIME_JYUTPING_HDRS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/LibIME/libime/jyutping")

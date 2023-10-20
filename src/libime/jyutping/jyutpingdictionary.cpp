@@ -14,7 +14,9 @@
 #include "libime/core/lattice.h"
 #include "libime/core/lrucache.h"
 #include "libime/core/utils.h"
+#include "zstdfilter.h"
 #include <boost/algorithm/string.hpp>
+#include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/unordered_map.hpp>
 #include <cmath>
@@ -32,7 +34,7 @@ static const float invalidJyutpingCost = -100.0f;
 static const char jyutpingHanziSep = '\x01';
 
 static constexpr uint32_t jyutpingBinaryFormatMagic = 0x000fc733;
-static constexpr uint32_t jyutpingBinaryFormatVersion = 0x1;
+static constexpr uint32_t jyutpingBinaryFormatVersion = 0x2;
 
 struct JyutpingSegmentGraphPathHasher {
     JyutpingSegmentGraphPathHasher(const SegmentGraph &graph) : graph_(graph) {}
@@ -636,10 +638,28 @@ void JyutpingDictionary::loadBinary(size_t idx, std::istream &in) {
         throw std::invalid_argument("Invalid jyutping magic.");
     }
     throw_if_io_fail(unmarshall(in, version));
-    if (version != jyutpingBinaryFormatVersion) {
-        throw std::invalid_argument("Invalid jyutping version.");
+    switch (version) {
+        case 0x1:
+            trie.load(in);
+            break;
+        case jyutpingBinaryFormatVersion: {
+            boost::iostreams::filtering_istreambuf compressBuf;
+            compressBuf.push(ZSTDDecompressor());
+            compressBuf.push(in);
+            std::istream compressIn(&compressBuf);
+
+            trie.load(compressIn);
+            // We don't want to read any data, but only trigger the zstd footer
+            // handling, which validates CRC.
+            compressIn.peek();
+            if (compressIn.bad()) {
+                throw std::invalid_argument("Failed to load dict data");
+            }
+            break;
+        }
+        default:
+            throw std::invalid_argument("Invalid jyutping version.");
     }
-    trie.load(in);
     *mutableTrie(idx) = std::move(trie);
 }
 
@@ -658,11 +678,17 @@ void JyutpingDictionary::save(size_t idx, std::ostream &out,
     case JyutpingDictFormat::Text:
         saveText(idx, out);
         break;
-    case JyutpingDictFormat::Binary:
+    case JyutpingDictFormat::Binary: {
         throw_if_io_fail(marshall(out, jyutpingBinaryFormatMagic));
         throw_if_io_fail(marshall(out, jyutpingBinaryFormatVersion));
-        mutableTrie(idx)->save(out);
+        boost::iostreams::filtering_streambuf<boost::iostreams::output>
+            compressBuf;
+        compressBuf.push(ZSTDCompressor());
+        compressBuf.push(out);
+        std::ostream compressOut(&compressBuf);
+        mutableTrie(idx)->save(compressOut);
         break;
+    }
     default:
         throw std::invalid_argument("invalid format type");
     }
