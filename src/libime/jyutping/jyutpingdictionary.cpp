@@ -639,26 +639,26 @@ void JyutpingDictionary::loadBinary(size_t idx, std::istream &in) {
     }
     throw_if_io_fail(unmarshall(in, version));
     switch (version) {
-        case 0x1:
-            trie.load(in);
-            break;
-        case jyutpingBinaryFormatVersion: {
-            boost::iostreams::filtering_istreambuf compressBuf;
-            compressBuf.push(ZSTDDecompressor());
-            compressBuf.push(in);
-            std::istream compressIn(&compressBuf);
+    case 0x1:
+        trie.load(in);
+        break;
+    case jyutpingBinaryFormatVersion: {
+        boost::iostreams::filtering_istreambuf compressBuf;
+        compressBuf.push(ZSTDDecompressor());
+        compressBuf.push(in);
+        std::istream compressIn(&compressBuf);
 
-            trie.load(compressIn);
-            // We don't want to read any data, but only trigger the zstd footer
-            // handling, which validates CRC.
-            compressIn.peek();
-            if (compressIn.bad()) {
-                throw std::invalid_argument("Failed to load dict data");
-            }
-            break;
+        trie.load(compressIn);
+        // We don't want to read any data, but only trigger the zstd footer
+        // handling, which validates CRC.
+        compressIn.peek();
+        if (compressIn.bad()) {
+            throw std::invalid_argument("Failed to load dict data");
         }
-        default:
-            throw std::invalid_argument("Invalid jyutping version.");
+        break;
+    }
+    default:
+        throw std::invalid_argument("Invalid jyutping version.");
     }
     *mutableTrie(idx) = std::move(trie);
 }

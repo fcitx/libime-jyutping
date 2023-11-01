@@ -18,7 +18,7 @@ namespace libime {
 class ZSTDError : public BOOST_IOSTREAMS_FAILURE {
 public:
     explicit ZSTDError(size_t error)
-            : BOOST_IOSTREAMS_FAILURE(ZSTD_getErrorName(error)), error_(error) {}
+        : BOOST_IOSTREAMS_FAILURE(ZSTD_getErrorName(error)), error_(error) {}
 
     size_t error() const { return error_; }
     static void check(size_t error) {
@@ -88,7 +88,7 @@ private:
         ZSTDError::check(ZSTD_initCStream(cstream_.get(), 0));
         // Enable checksum.
         ZSTDError::check(
-                ZSTD_CCtx_setParameter(cstream_.get(), ZSTD_c_checksumFlag, 1));
+            ZSTD_CCtx_setParameter(cstream_.get(), ZSTD_c_checksumFlag, 1));
     }
 
     ZSTDResult deflate(bool finish) {
@@ -144,7 +144,7 @@ private:
 } // namespace details
 
 struct ZSTDCompressor
-        : boost::iostreams::symmetric_filter<details::ZSTDCompressorImpl> {
+    : boost::iostreams::symmetric_filter<details::ZSTDCompressorImpl> {
 private:
     typedef details::ZSTDCompressorImpl impl_type;
     typedef symmetric_filter<impl_type> base_type;
@@ -153,13 +153,13 @@ public:
     typedef typename base_type::char_type char_type;
     typedef typename base_type::category category;
     ZSTDCompressor(std::streamsize buffer_size =
-    boost::iostreams::default_device_buffer_size)
-            : base_type(buffer_size) {}
+                       boost::iostreams::default_device_buffer_size)
+        : base_type(buffer_size) {}
 };
 BOOST_IOSTREAMS_PIPABLE(ZSTDCompressor, 0)
 
 struct ZSTDDecompressor
-        : boost::iostreams::symmetric_filter<details::ZSTDDecompressorImpl> {
+    : boost::iostreams::symmetric_filter<details::ZSTDDecompressorImpl> {
 private:
     typedef details::ZSTDDecompressorImpl impl_type;
     typedef symmetric_filter<impl_type> base_type;
@@ -168,8 +168,8 @@ public:
     typedef typename base_type::char_type char_type;
     typedef typename base_type::category category;
     ZSTDDecompressor(std::streamsize buffer_size =
-    boost::iostreams::default_device_buffer_size)
-            : base_type(buffer_size) {}
+                         boost::iostreams::default_device_buffer_size)
+        : base_type(buffer_size) {}
 };
 BOOST_IOSTREAMS_PIPABLE(ZSTDDecompressor, 0)
 
