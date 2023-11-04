@@ -37,8 +37,8 @@ target_include_directories(IMEJyutping PUBLIC
 
 target_link_libraries(IMEJyutping PUBLIC Fcitx5::Utils Boost::boost LibIME::Core PRIVATE Boost::iostreams PkgConfig::ZSTD)
 
-install(TARGETS IMEJyutping EXPORT LibIMEJyutpingTargets LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
-install(FILES ${LIBIME_JYUTPING_HDRS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/LibIME/libime/jyutping")
+install(TARGETS IMEJyutping EXPORT LibIMEJyutpingTargets LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT lib)
+install(FILES ${LIBIME_JYUTPING_HDRS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/LibIME/libime/jyutping" COMPONENT header)
 
 add_library(LibIME::Jyutping ALIAS IMEJyutping)
 
@@ -49,10 +49,14 @@ configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/LibIMEJyutpingConfig.
 
 generate_export_header(IMEJyutping BASE_NAME LibIMEJyutping)
 
-install(EXPORT LibIMEJyutpingTargets DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/LibIMEJyutping" FILE LibIMEJyutpingTargets.cmake NAMESPACE LibIME:: )
+install(EXPORT LibIMEJyutpingTargets
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/LibIMEJyutping"
+        FILE LibIMEJyutpingTargets.cmake
+        NAMESPACE LibIME::
+        COMPONENT Devel)
 
 install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/LibIMEJyutpingConfig.cmake"
                "${CMAKE_CURRENT_BINARY_DIR}/LibIMEJyutpingConfigVersion.cmake"
         DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/LibIMEJyutping"
-        COMPONENT Devel )
+        COMPONENT Devel)
 
