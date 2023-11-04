@@ -42,8 +42,11 @@ set(LIBIME_JYUTPING_INSTALL_PKGDATADIR "${CMAKE_INSTALL_FULL_DATADIR}/libime")
 set(LIBIME_JYUTPING_INSTALL_LIBDATADIR "${CMAKE_INSTALL_FULL_LIBDIR}/libime")
 
 find_package(LibIMECore 1.0.16 REQUIRED)
-find_package(Gettext REQUIRED)
-find_package(Fcitx5Module REQUIRED Spell Punctuation QuickPhrase)
+
+if(ENABLE_ENGINE)
+    find_package(Gettext REQUIRED)
+    find_package(Fcitx5Module REQUIRED Spell Punctuation QuickPhrase)
+endif()
 
 if(ENABLE_TEST)
     enable_testing()
