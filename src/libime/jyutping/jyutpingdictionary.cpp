@@ -245,25 +245,37 @@ traverseAlongPathOneStepBySyllables(const MatchedJyutpingPath &path,
             }
             const auto &finals = syl.second;
 
-            auto updateNext = [fuzzies, &path, &positions](auto finalPair,
-                                                           auto pos) {
-                auto final = static_cast<char>(finalPair.first);
+            auto updateNext = [fuzzies, &path,
+                               &positions](char final, int fuzzy, auto pos) {
                 auto result = path.trie()->traverse(&final, 1, pos);
 
                 if (!JyutpingTrie::isNoPath(result)) {
-                    size_t newFuzzies = fuzzies + (finalPair.second ? 1 : 0);
+                    size_t newFuzzies = fuzzies + fuzzy;
                     positions.emplace_back(pos, newFuzzies);
                 }
             };
             if (finals.size() > 1 ||
                 finals[0].first != JyutpingFinal::Invalid) {
                 for (auto final : finals) {
-                    updateNext(final, pos);
+                    updateNext(static_cast<char>(final.first), 0, pos);
                 }
             } else {
+                // Assign a different factory for "m" and "ng", since these
+                // character can only be matched with "m" or "ng".
+                int fuzzyFactor = JyutpingEncoder::isValidInitialFinal(
+                                      syl.first, JyutpingFinal::Zero)
+                                      ? 10
+                                      : 1;
                 for (char test = JyutpingEncoder::firstFinal;
                      test <= JyutpingEncoder::lastFinal; test++) {
-                    updateNext(std::make_pair(test, true), pos);
+                    auto curFinal = static_cast<JyutpingFinal>(test);
+                    if (JyutpingEncoder::isValidInitialFinal(syl.first,
+                                                             curFinal)) {
+                        updateNext(
+                            test,
+                            (curFinal == JyutpingFinal::Zero ? 0 : fuzzyFactor),
+                            pos);
+                    }
                 }
             }
         }
