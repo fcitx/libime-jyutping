@@ -73,6 +73,8 @@ jobs:
         uses: fcitx/github-actions@cmake
         with:
           path: fcitx5-chinese-addons
+          cmake-option: >-
+            -DENABLE_GUI=Off
       - uses: actions/checkout@v4
         with:
           path: libime-jyutping
