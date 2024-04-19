@@ -67,6 +67,31 @@ jobs:
           path: libime
       - uses: actions/checkout@v4
         with:
+          repository: fcitx/fcitx5-chinese-addons
+          path: fcitx5-chinese-addons
+      - name: Build and Install fcitx5-chinese-addons
+        uses: fcitx/github-actions@cmake
+        with:
+          path: fcitx5-chinese-addons
+      - uses: actions/checkout@v4
+        with:
+          path: libime-jyutping
+      - name: Init CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: cpp
+          source-root: libime-jyutping
+      - name: Build and Install libime-jyutping
+        uses: fcitx/github-actions@cmake
+        with:
+          path: libime-jyutping
+      - name: Test
+        run: |
+          ctest --test-dir libime-jyutping/build
+      - name: CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+      - uses: actions/checkout@v4
+        with:
           path: libime-jyutping
       - name: Init CodeQL
         uses: github/codeql-action/init@v3
