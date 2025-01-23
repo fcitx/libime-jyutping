@@ -6,34 +6,64 @@
  */
 
 #include "engine.h"
+#include "libime/jyutping/jyutpingime.h"
 #include "punctuation_public.h"
 #include "spell_public.h"
+#include <algorithm>
 #include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/format.hpp>
 #include <boost/iostreams/device/file_descriptor.hpp>
 #include <boost/iostreams/stream.hpp>
+#include <boost/iostreams/stream_buffer.hpp>
+#include <cstddef>
+#include <cstdint>
+#include <exception>
 #include <fcitx-config/iniparser.h>
+#include <fcitx-utils/capabilityflags.h>
 #include <fcitx-utils/charutils.h>
 #include <fcitx-utils/event.h>
+#include <fcitx-utils/eventloopinterface.h>
 #include <fcitx-utils/i18n.h>
+#include <fcitx-utils/key.h>
+#include <fcitx-utils/keysym.h>
 #include <fcitx-utils/log.h>
+#include <fcitx-utils/macros.h>
 #include <fcitx-utils/standardpath.h>
+#include <fcitx-utils/stringutils.h>
+#include <fcitx-utils/textformatflags.h>
 #include <fcitx-utils/utf8.h>
 #include <fcitx/action.h>
+#include <fcitx/addoninstance.h>
+#include <fcitx/candidatelist.h>
+#include <fcitx/event.h>
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputcontextmanager.h>
 #include <fcitx/inputcontextproperty.h>
+#include <fcitx/inputmethodentry.h>
 #include <fcitx/inputpanel.h>
+#include <fcitx/statusarea.h>
+#include <fcitx/text.h>
+#include <fcitx/userinterface.h>
 #include <fcitx/userinterfacemanager.h>
 #include <fcntl.h>
 #include <fmt/format.h>
+#include <istream>
 #include <libime/core/historybigram.h>
+#include <libime/core/languagemodel.h>
 #include <libime/core/prediction.h>
 #include <libime/core/userlanguagemodel.h>
 #include <libime/jyutping/jyutpingcontext.h>
 #include <libime/jyutping/jyutpingdecoder.h>
 #include <libime/jyutping/jyutpingdictionary.h>
+#include <memory>
+#include <ostream>
 #include <quickphrase_public.h>
+#include <string>
+#include <string_view>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 namespace fcitx {
 
@@ -86,9 +116,9 @@ public:
 
 class StrokeCandidateWord : public CandidateWord {
 public:
-    StrokeCandidateWord(JyutpingEngine *engine, const std::string &hz,
+    StrokeCandidateWord(JyutpingEngine *engine, std::string hz,
                         const std::string &py)
-        : CandidateWord(), engine_(engine), hz_(std::move(hz)) {
+        : engine_(engine), hz_(std::move(hz)) {
         if (py.empty()) {
             setText(Text(hz_));
         } else {
@@ -108,13 +138,13 @@ private:
 
 class SpellCandidateWord : public CandidateWord {
 public:
-    SpellCandidateWord(JyutpingEngine *engine, const std::string &word)
-        : CandidateWord(), engine_(engine), word_(std::move(word)) {
+    SpellCandidateWord(JyutpingEngine *engine, std::string word)
+        : engine_(engine), word_(std::move(word)) {
         setText(Text(word_));
     }
 
     void select(InputContext *inputContext) const override {
-        auto state = inputContext->propertyFor(&engine_->factory());
+        auto *state = inputContext->propertyFor(&engine_->factory());
         auto &context = state->context_;
         inputContext->commitString(context.selectedSentence() + word_);
         engine_->doReset(inputContext);
@@ -131,7 +161,7 @@ public:
         : CandidateWord(std::move(text)), engine_(engine), idx_(idx) {}
 
     void select(InputContext *inputContext) const override {
-        auto state = inputContext->propertyFor(&engine_->factory());
+        auto *state = inputContext->propertyFor(&engine_->factory());
         auto &context = state->context_;
         if (idx_ >= context.candidates().size()) {
             return;
@@ -164,7 +194,7 @@ JyutpingEngine::predictCandidateList(const std::vector<std::string> &words) {
 void JyutpingEngine::initPredict(InputContext *inputContext) {
     inputContext->inputPanel().reset();
 
-    auto state = inputContext->propertyFor(&factory_);
+    auto *state = inputContext->propertyFor(&factory_);
     auto &context = state->context_;
     auto lmState = context.state();
     state->predictWords_ = context.selectedWords();
@@ -181,7 +211,7 @@ void JyutpingEngine::initPredict(InputContext *inputContext) {
 void JyutpingEngine::updatePredict(InputContext *inputContext) {
     inputContext->inputPanel().reset();
 
-    auto state = inputContext->propertyFor(&factory_);
+    auto *state = inputContext->propertyFor(&factory_);
     auto words = prediction_.predict(state->predictWords_, *config_.pageSize);
     if (auto candidateList = predictCandidateList(words)) {
         auto &inputPanel = inputContext->inputPanel();
@@ -193,7 +223,9 @@ void JyutpingEngine::updatePredict(InputContext *inputContext) {
 
 int englishNess(const std::string &input) {
     auto pys = stringutils::split(input, " ");
-    constexpr int fullWeight = -2, shortWeight = 3, invalidWeight = 6;
+    constexpr int fullWeight = -2;
+    constexpr int shortWeight = 3;
+    constexpr int invalidWeight = 6;
     int weight = 0;
     for (auto iter = pys.begin(), end = pys.end(); iter != end; ++iter) {
         if (*iter == "ng") {
@@ -202,7 +234,8 @@ int englishNess(const std::string &input) {
             auto firstChr = (*iter)[0];
             if (firstChr == '\'') {
                 return 0;
-            } else if (firstChr == 'i' || firstChr == 'u' || firstChr == 'v') {
+            }
+            if (firstChr == 'i' || firstChr == 'u' || firstChr == 'v') {
                 weight += invalidWeight;
             } else if (iter->size() <= 2) {
                 weight += shortWeight;
@@ -248,7 +281,7 @@ void JyutpingEngine::updateUI(InputContext *inputContext) {
     }
 
     if (context.userInput().size()) {
-        auto &candidates = context.candidates();
+        const auto &candidates = context.candidates();
         auto &inputPanel = inputContext->inputPanel();
         if (context.candidates().size()) {
             auto candidateList = std::make_unique<CommonCandidateList>();
@@ -328,7 +361,7 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
             libime::DefaultLanguageModelResolver::instance()
                 .languageModelFileForLanguage("zh_HK")));
 
-    auto &standardPath = StandardPath::global();
+    const auto &standardPath = StandardPath::global();
     auto systemDictFile = standardPath.open(StandardPath::Type::Data,
                                             "libime/jyutping.dict", O_RDONLY);
     if (systemDictFile.isValid()) {
@@ -421,12 +454,12 @@ void JyutpingEngine::reloadConfig() {
 }
 void JyutpingEngine::activate(const fcitx::InputMethodEntry &,
                               fcitx::InputContextEvent &event) {
-    auto inputContext = event.inputContext();
+    auto *inputContext = event.inputContext();
     // Request full width.
     fullwidth();
     chttrans();
     for (auto actionName : {"chttrans", "punctuation", "fullwidth"}) {
-        if (auto action =
+        if (auto *action =
                 instance_->userInterfaceManager().lookupAction(actionName)) {
             inputContext->statusArea().addAction(StatusGroup::InputMethod,
                                                  action);
@@ -438,9 +471,9 @@ void JyutpingEngine::activate(const fcitx::InputMethodEntry &,
 
 void JyutpingEngine::deactivate(const fcitx::InputMethodEntry &entry,
                                 fcitx::InputContextEvent &event) {
-    auto inputContext = event.inputContext();
+    auto *inputContext = event.inputContext();
     if (event.type() == EventType::InputContextSwitchInputMethod) {
-        auto state = inputContext->propertyFor(&factory_);
+        auto *state = inputContext->propertyFor(&factory_);
         if (state->context_.size()) {
             inputContext->commitString(state->context_.userInput());
         }
@@ -463,8 +496,8 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
         return;
     }
 
-    auto inputContext = event.inputContext();
-    auto state = inputContext->propertyFor(&factory_);
+    auto *inputContext = event.inputContext();
+    auto *state = inputContext->propertyFor(&factory_);
     bool lastIsPunc = state->lastIsPunc_;
     state->lastIsPunc_ = false;
     // check if we can select candidate.
@@ -503,17 +536,20 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
             return;
         }
 
-        if (auto movable = candidateList->toCursorMovable()) {
+        if (auto *movable = candidateList->toCursorMovable()) {
             if (event.key().checkKeyList(*config_.nextCandidate)) {
                 movable->nextCandidate();
                 inputContext->updateUserInterface(
                     UserInterfaceComponent::InputPanel);
-                return event.filterAndAccept();
-            } else if (event.key().checkKeyList(*config_.prevCandidate)) {
+                event.filterAndAccept();
+                return;
+            }
+            if (event.key().checkKeyList(*config_.prevCandidate)) {
                 movable->prevCandidate();
                 inputContext->updateUserInterface(
                     UserInterfaceComponent::InputPanel);
-                return event.filterAndAccept();
+                event.filterAndAccept();
+                return;
             }
         }
     }
@@ -601,10 +637,7 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
             auto candidateList = inputContext->inputPanel().candidateList();
             if (candidateList && candidateList->size()) {
                 event.filterAndAccept();
-                int idx = candidateList->cursorIndex();
-                if (idx < 0) {
-                    idx = 0;
-                }
+                int idx = std::max(candidateList->cursorIndex(), 0);
                 inputContext->inputPanel()
                     .candidateList()
                     ->candidate(idx)
@@ -624,9 +657,9 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
                         instance()->eventLoop().addTimeEvent(
                             CLOCK_MONOTONIC, now(CLOCK_MONOTONIC) + 300, 0,
                             [this, ref, puncStr](EventSourceTime *, uint64_t) {
-                                if (auto inputContext = ref.get()) {
+                                if (auto *inputContext = ref.get()) {
                                     inputContext->commitString(puncStr);
-                                    auto state =
+                                    auto *state =
                                         inputContext->propertyFor(&factory_);
                                     state->cancelLastEvent_.reset();
                                 }
@@ -695,12 +728,12 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
 }
 
 void JyutpingEngine::reset(const InputMethodEntry &, InputContextEvent &event) {
-    auto inputContext = event.inputContext();
+    auto *inputContext = event.inputContext();
     doReset(inputContext);
 }
 
 void JyutpingEngine::doReset(InputContext *inputContext) {
-    auto state = inputContext->propertyFor(&factory_);
+    auto *state = inputContext->propertyFor(&factory_);
     state->context_.clear();
     state->predictWords_.clear();
     inputContext->inputPanel().reset();
@@ -711,7 +744,7 @@ void JyutpingEngine::doReset(InputContext *inputContext) {
 
 void JyutpingEngine::save() {
     safeSaveAsIni(config_, "conf/jyutping.conf");
-    auto &standardPath = StandardPath::global();
+    const auto &standardPath = StandardPath::global();
     standardPath.safeSave(
         StandardPath::Type::PkgData, "jyutping/user.dict", [this](int fd) {
             boost::iostreams::stream_buffer<
@@ -745,4 +778,4 @@ void JyutpingEngine::save() {
 }
 } // namespace fcitx
 
-FCITX_ADDON_FACTORY(fcitx::JyutpingEngineFactory)
+FCITX_ADDON_FACTORY_V2(jyutping, fcitx::JyutpingEngineFactory)

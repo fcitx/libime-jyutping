@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
 project(libime-jyutping VERSION 1.0.12)
 
+set(REQUIRED_FCITX_VERSION 5.1.12)
 find_package(ECM 1.0 REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
@@ -26,7 +27,7 @@ include(ECMUninstallTarget)
 find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(ZSTD REQUIRED IMPORTED_TARGET "libzstd")
-find_package(Fcitx5Utils REQUIRED)
+find_package(Fcitx5Utils  ${REQUIRED_FCITX_VERSION} REQUIRED)
 find_package(fmt REQUIRED)
 
 if (TARGET fmt::fmt-header-only)
@@ -45,6 +46,7 @@ find_package(LibIMECore 1.0.16 REQUIRED)
 
 if(ENABLE_ENGINE)
     find_package(Gettext REQUIRED)
+    find_package(Fcitx5Core ${REQUIRED_FCITX_VERSION} REQUIRED)
     find_package(Fcitx5Module REQUIRED Spell Punctuation QuickPhrase)
     add_subdirectory(po)
 endif()

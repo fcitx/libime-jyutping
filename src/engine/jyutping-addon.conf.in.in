@@ -5,9 +5,11 @@ Library=libjyutping
 Type=SharedLibrary
 OnDemand=True
 Configurable=True
+Version=@PROJECT_VERSION@
 
 [Addon/Dependencies]
-0=punctuation
+0=core:@REQUIRED_FCITX_VERSION@
+1=punctuation
 
 [Addon/OptionalDependencies]
 0=fullwidth
