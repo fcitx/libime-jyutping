@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-project(libime-jyutping VERSION 1.0.12)
+project(libime-jyutping VERSION 1.0.13)
 
 set(REQUIRED_FCITX_VERSION 5.1.12)
 find_package(ECM 1.0 REQUIRED)
