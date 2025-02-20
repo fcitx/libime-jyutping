@@ -12,10 +12,6 @@
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/format.hpp>
-#include <boost/iostreams/device/file_descriptor.hpp>
-#include <boost/iostreams/stream.hpp>
-#include <boost/iostreams/stream_buffer.hpp>
 #include <cstddef>
 #include <cstdint>
 #include <exception>
@@ -24,6 +20,7 @@
 #include <fcitx-utils/charutils.h>
 #include <fcitx-utils/event.h>
 #include <fcitx-utils/eventloopinterface.h>
+#include <fcitx-utils/fdstreambuf.h>
 #include <fcitx-utils/i18n.h>
 #include <fcitx-utils/key.h>
 #include <fcitx-utils/keysym.h>
@@ -47,7 +44,6 @@
 #include <fcitx/userinterface.h>
 #include <fcitx/userinterfacemanager.h>
 #include <fcntl.h>
-#include <fmt/format.h>
 #include <istream>
 #include <libime/core/historybigram.h>
 #include <libime/core/languagemodel.h>
@@ -122,7 +118,7 @@ public:
         if (py.empty()) {
             setText(Text(hz_));
         } else {
-            setText(Text(fmt::format(_("{0} ({1})"), hz_, py)));
+            setText(Text(_("{0} ({1})", hz_, py)));
         }
     }
 
@@ -365,10 +361,7 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
     auto systemDictFile = standardPath.open(StandardPath::Type::Data,
                                             "libime/jyutping.dict", O_RDONLY);
     if (systemDictFile.isValid()) {
-        boost::iostreams::stream_buffer<
-            boost::iostreams::file_descriptor_source>
-            buffer(systemDictFile.fd(),
-                   boost::iostreams::file_descriptor_flags::never_close_handle);
+        IFDStreamBuf buffer(systemDictFile.fd());
         std::istream in(&buffer);
         ime_->dict()->load(libime::jyutping::JyutpingDictionary::SystemDict, in,
                            libime::jyutping::JyutpingDictFormat::Binary);
@@ -388,10 +381,7 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
         }
 
         try {
-            boost::iostreams::stream_buffer<
-                boost::iostreams::file_descriptor_source>
-                buffer(file.fd(), boost::iostreams::file_descriptor_flags::
-                                      never_close_handle);
+            IFDStreamBuf buffer(file.fd());
             std::istream in(&buffer);
             ime_->dict()->load(libime::jyutping::JyutpingDictionary::UserDict,
                                in,
@@ -404,10 +394,7 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
                                           "jyutping/user.history", O_RDONLY);
 
         try {
-            boost::iostreams::stream_buffer<
-                boost::iostreams::file_descriptor_source>
-                buffer(file.fd(), boost::iostreams::file_descriptor_flags::
-                                      never_close_handle);
+            IFDStreamBuf buffer(file.fd());
             std::istream in(&buffer);
             ime_->model()->load(in);
         } catch (const std::exception &) {
@@ -697,14 +684,12 @@ void JyutpingEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &event) {
                 std::string text;
                 if (!output.empty()) {
                     if (!altOutput.empty()) {
-                        text = boost::str(
-                            boost::format(
-                                _("Press %1% for %2% and %3% for %4%")) %
-                            keyString % output % _("Return") % altOutput);
-                    } else {
                         text =
-                            boost::str(boost::format(_("Press %1% for %2%")) %
-                                       keyString % altOutput);
+
+                            _("Press {0} for {1} and {2} for {3}", keyString,
+                              output, _("Return"), altOutput);
+                    } else {
+                        text = _("Press {0} for {1}", keyString, altOutput);
                     }
                 }
                 quickphrase()->call<IQuickPhrase::trigger>(
@@ -747,10 +732,7 @@ void JyutpingEngine::save() {
     const auto &standardPath = StandardPath::global();
     standardPath.safeSave(
         StandardPath::Type::PkgData, "jyutping/user.dict", [this](int fd) {
-            boost::iostreams::stream_buffer<
-                boost::iostreams::file_descriptor_sink>
-                buffer(fd, boost::iostreams::file_descriptor_flags::
-                               never_close_handle);
+            OFDStreamBuf buffer(fd);
             std::ostream out(&buffer);
             try {
                 ime_->dict()->save(
@@ -761,20 +743,17 @@ void JyutpingEngine::save() {
                 return false;
             }
         });
-    standardPath.safeSave(
-        StandardPath::Type::PkgData, "jyutping/user.history", [this](int fd) {
-            boost::iostreams::stream_buffer<
-                boost::iostreams::file_descriptor_sink>
-                buffer(fd, boost::iostreams::file_descriptor_flags::
-                               never_close_handle);
-            std::ostream out(&buffer);
-            try {
-                ime_->model()->save(out);
-                return true;
-            } catch (const std::exception &) {
-                return false;
-            }
-        });
+    standardPath.safeSave(StandardPath::Type::PkgData, "jyutping/user.history",
+                          [this](int fd) {
+                              OFDStreamBuf buffer(fd);
+                              std::ostream out(&buffer);
+                              try {
+                                  ime_->model()->save(out);
+                                  return true;
+                              } catch (const std::exception &) {
+                                  return false;
+                              }
+                          });
 }
 } // namespace fcitx
 
