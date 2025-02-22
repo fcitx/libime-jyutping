@@ -4,15 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2022
-# Dmitry <dmitrydmitry761@gmail.com>, 2024
+# Dmitry <dmitrydmitry761@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-02-21 20:24+0000\n"
+"POT-Creation-Date: 2025-02-22 20:24+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
-"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2024\n"
+"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/fcitx/teams/12005/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -38,12 +38,12 @@ msgstr "Прогнозировать"
 #: src/engine/engine.cpp:692
 #, c++-format
 msgid "Press {0} for {1}"
-msgstr ""
+msgstr "Нажать {0} для {1}"
 
 #: src/engine/engine.cpp:689
 #, c++-format
 msgid "Press {0} for {1} and {2} for {3}"
-msgstr ""
+msgstr "Нажать {0} для {1} и {2} для {3}"
 
 #: src/engine/engine.cpp:690
 msgid "Return"

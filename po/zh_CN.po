@@ -5,14 +5,15 @@
 # Translators:
 # csslayer <wengxt@gmail.com>, 2022
 # rocka, 2023
+# Yiyu Liu, 2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-02-21 20:24+0000\n"
+"POT-Creation-Date: 2025-02-22 20:24+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
-"Last-Translator: rocka, 2023\n"
+"Last-Translator: Yiyu Liu, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/fcitx/teams/12005/"
 "zh_CN/)\n"
 "Language: zh_CN\n"
@@ -37,12 +38,12 @@ msgstr "预测"
 #: src/engine/engine.cpp:692
 #, c++-format
 msgid "Press {0} for {1}"
-msgstr ""
+msgstr "按下{0}输入{1}"
 
 #: src/engine/engine.cpp:689
 #, c++-format
 msgid "Press {0} for {1} and {2} for {3}"
-msgstr ""
+msgstr "按下{0}输入{1}，按下{2}输入{3}"
 
 #: src/engine/engine.cpp:690
 msgid "Return"

@@ -4,14 +4,15 @@
 #
 # Translators:
 # 黃柏諺 <s8321414@gmail.com>, 2022
+# Yiyu Liu, 2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-02-21 20:24+0000\n"
+"POT-Creation-Date: 2025-02-22 20:24+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2022\n"
+"Last-Translator: Yiyu Liu, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/fcitx/teams/12005/"
 "zh_TW/)\n"
 "Language: zh_TW\n"
@@ -36,12 +37,12 @@ msgstr "預測"
 #: src/engine/engine.cpp:692
 #, c++-format
 msgid "Press {0} for {1}"
-msgstr ""
+msgstr "按下 {0} 以輸入 {1}"
 
 #: src/engine/engine.cpp:689
 #, c++-format
 msgid "Press {0} for {1} and {2} for {3}"
-msgstr ""
+msgstr "按下 {0} 以輸入 {1}，按下 {2} 以輸入 {3}"
 
 #: src/engine/engine.cpp:690
 msgid "Return"
