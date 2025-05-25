@@ -26,7 +26,7 @@
 #include <fcitx-utils/keysym.h>
 #include <fcitx-utils/log.h>
 #include <fcitx-utils/macros.h>
-#include <fcitx-utils/standardpath.h>
+#include <fcitx-utils/standardpaths.h>
 #include <fcitx-utils/stringutils.h>
 #include <fcitx-utils/textformatflags.h>
 #include <fcitx-utils/utf8.h>
@@ -357,9 +357,9 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
             libime::DefaultLanguageModelResolver::instance()
                 .languageModelFileForLanguage("zh_HK")));
 
-    const auto &standardPath = StandardPath::global();
-    auto systemDictFile = standardPath.open(StandardPath::Type::Data,
-                                            "libime/jyutping.dict", O_RDONLY);
+    const auto &standardPath = StandardPaths::global();
+    auto systemDictFile =
+        standardPath.open(StandardPathsType::Data, "libime/jyutping.dict");
     if (systemDictFile.isValid()) {
         IFDStreamBuf buffer(systemDictFile.fd());
         std::istream in(&buffer);
@@ -373,8 +373,9 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
     prediction_.setUserLanguageModel(ime_->model());
 
     do {
-        auto file = standardPath.openUser(StandardPath::Type::PkgData,
-                                          "jyutping/user.dict", O_RDONLY);
+        auto file =
+            standardPath.open(StandardPathsType::PkgData, "jyutping/user.dict",
+                              StandardPathsMode::User);
 
         if (file.fd() < 0) {
             break;
@@ -390,8 +391,9 @@ JyutpingEngine::JyutpingEngine(Instance *instance)
         }
     } while (0);
     do {
-        auto file = standardPath.openUser(StandardPath::Type::PkgData,
-                                          "jyutping/user.history", O_RDONLY);
+        auto file =
+            standardPath.open(StandardPathsType::PkgData,
+                              "jyutping/user.history", StandardPathsMode::User);
 
         try {
             IFDStreamBuf buffer(file.fd());
@@ -729,9 +731,9 @@ void JyutpingEngine::doReset(InputContext *inputContext) {
 
 void JyutpingEngine::save() {
     safeSaveAsIni(config_, "conf/jyutping.conf");
-    const auto &standardPath = StandardPath::global();
+    const auto &standardPath = StandardPaths::global();
     standardPath.safeSave(
-        StandardPath::Type::PkgData, "jyutping/user.dict", [this](int fd) {
+        StandardPathsType::PkgData, "jyutping/user.dict", [this](int fd) {
             OFDStreamBuf buffer(fd);
             std::ostream out(&buffer);
             try {
@@ -743,7 +745,7 @@ void JyutpingEngine::save() {
                 return false;
             }
         });
-    standardPath.safeSave(StandardPath::Type::PkgData, "jyutping/user.history",
+    standardPath.safeSave(StandardPathsType::PkgData, "jyutping/user.history",
                           [this](int fd) {
                               OFDStreamBuf buffer(fd);
                               std::ostream out(&buffer);
