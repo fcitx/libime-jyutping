@@ -6,25 +6,28 @@
  */
 
 #include "jyutpingdictionary.h"
-#include "jyutpingdata.h"
 #include "jyutpingdecoder_p.h"
 #include "jyutpingencoder.h"
 #include "jyutpingmatchstate_p.h"
 #include "libime/core/datrie.h"
 #include "libime/core/lattice.h"
 #include "libime/core/lrucache.h"
-#include "libime/core/utils.h"
+#include "utils_p.h"
 #include "zstdfilter.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/unordered_map.hpp>
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
 #include <fstream>
 #include <iomanip>
+#include <istream>
 #include <queue>
+#include <stdexcept>
 #include <string_view>
-#include <type_traits>
+#include <utility>
 
 namespace libime {
 namespace jyutping {
