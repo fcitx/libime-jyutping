@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-09-11 20:25+0000\n"
+"POT-Creation-Date: 2025-09-12 20:25+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
 "Last-Translator: Popolon_Github, 2025\n"
 "Language-Team: French (https://app.transifex.com/fcitx/teams/12005/fr/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:7
 #: src/engine/jyutping.conf.in:2 src/engine/jyutping-addon.conf.in.in:2
 msgid "Jyutping"
-msgstr ""
+msgstr "Jyutping"
 
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:8
 msgid "Jyutping input method"
@@ -31,27 +31,27 @@ msgstr "Méthode de saisie jyutping"
 
 #: src/engine/engine.cpp:420
 msgid "Prediction"
-msgstr ""
+msgstr "Prédiction"
 
 #: src/engine/engine.cpp:694
 #, c++-format
 msgid "Press {0} for {1}"
-msgstr ""
+msgstr "Presser{0}pour{1}"
 
 #: src/engine/engine.cpp:691
 #, c++-format
 msgid "Press {0} for {1} and {2} for {3}"
-msgstr ""
+msgstr "Presser{0}pour{1}et{2}pour{3}"
 
 #: src/engine/engine.cpp:692
 msgid "Return"
-msgstr ""
+msgstr "Entrée"
 
 #: src/engine/engine.cpp:421
 msgid "Show prediction words"
-msgstr ""
+msgstr "Montrer les mots de prédiction"
 
 #: src/engine/engine.cpp:121
 #, c++-format
 msgid "{0} ({1})"
-msgstr ""
+msgstr "{0}({1})"
