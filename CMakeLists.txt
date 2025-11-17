@@ -8,6 +8,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${C
 #########################################
 # Options
 #########################################
+option(BUILD_SHARED_LIBS "Build library as shared libs" On)
 option(ENABLE_ENGINE "Enable input method for fcitx" On)
 option(ENABLE_TEST "Build Test" On)
 option(ENABLE_DOC "Build doxygen" Off)
