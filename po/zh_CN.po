@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the fcitx5-jyutping package.
 #
 # Translators:
-# Xuetian Weng <wengxt@gmail.com>, 2022
 # rocka, 2023
 # Yiyu Liu, 2025
+# Xuetian Weng <wengxt@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-12-22 03:28+0000\n"
+"POT-Creation-Date: 2025-12-22 06:01+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
-"Last-Translator: Yiyu Liu, 2025\n"
+"Last-Translator: Xuetian Weng <wengxt@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/fcitx/teams/12005/"
 "zh_CN/)\n"
 "Language: zh_CN\n"
@@ -24,11 +24,11 @@ msgstr ""
 
 #: src/engine/engine.h:28
 msgid "Candidates Per Page"
-msgstr ""
+msgstr "每页候选词"
 
 #: src/engine/engine.h:32
 msgid "Enable Prediction"
-msgstr ""
+msgstr "启用预测"
 
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:7
 #: src/engine/jyutping.conf.in:2 src/engine/jyutping-addon.conf.in.in:2
@@ -41,19 +41,19 @@ msgstr "粤语拼音输入法"
 
 #: src/engine/engine.h:55
 msgid "Next Candidate"
-msgstr ""
+msgstr "下一个候选词"
 
 #: src/engine/engine.h:43
 msgid "Next Page"
-msgstr ""
+msgstr "下一页"
 
 #: src/engine/engine.h:30
 msgid "Number of Predictions"
-msgstr ""
+msgstr "预测数量"
 
 #: src/engine/engine.h:59
 msgid "Number of Sentences"
-msgstr ""
+msgstr "句子数量"
 
 #: src/engine/engine.cpp:420
 msgid "Prediction"
@@ -71,11 +71,11 @@ msgstr "按下{0}输入{1}，按下{2}输入{3}"
 
 #: src/engine/engine.h:49
 msgid "Previous Candidate"
-msgstr ""
+msgstr "上一个候选词"
 
 #: src/engine/engine.h:37
 msgid "Previous Page"
-msgstr ""
+msgstr "上一页"
 
 #: src/engine/engine.cpp:692
 msgid "Return"
@@ -86,7 +86,7 @@ msgid "Show prediction words"
 msgstr "显示联想词组"
 
 #: src/engine/engine.h:62
-msgid "Use Inner Segment Jyutping Settings"
+msgid "Use Inner Segment"
 msgstr ""
 
 #: src/engine/engine.cpp:121

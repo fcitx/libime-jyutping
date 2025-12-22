@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-12-22 03:28+0000\n"
+"POT-Creation-Date: 2025-12-22 06:01+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, 2022\n"
 "Language-Team: German (https://app.transifex.com/fcitx/teams/12005/de/)\n"
@@ -83,7 +83,7 @@ msgid "Show prediction words"
 msgstr "Vorhersagewörter anzeigen"
 
 #: src/engine/engine.h:62
-msgid "Use Inner Segment Jyutping Settings"
+msgid "Use Inner Segment"
 msgstr ""
 
 #: src/engine/engine.cpp:121
