@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the fcitx5-jyutping package.
 #
 # Translators:
-# csslayer <wengxt@gmail.com>, 2022
+# Xuetian Weng <wengxt@gmail.com>, 2022
 # Dmitry <dmitrydmitry761@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-02-22 20:24+0000\n"
+"POT-Creation-Date: 2025-12-22 03:28+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
 "Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/fcitx/teams/12005/ru/)\n"
@@ -22,6 +22,14 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
+#: src/engine/engine.h:28
+msgid "Candidates Per Page"
+msgstr ""
+
+#: src/engine/engine.h:32
+msgid "Enable Prediction"
+msgstr ""
+
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:7
 #: src/engine/jyutping.conf.in:2 src/engine/jyutping-addon.conf.in.in:2
 msgid "Jyutping"
@@ -31,27 +39,55 @@ msgstr "Ютпхин"
 msgid "Jyutping input method"
 msgstr "Кантонский метод ввода Ютпхин"
 
-#: src/engine/engine.cpp:418
+#: src/engine/engine.h:55
+msgid "Next Candidate"
+msgstr ""
+
+#: src/engine/engine.h:43
+msgid "Next Page"
+msgstr ""
+
+#: src/engine/engine.h:30
+msgid "Number of Predictions"
+msgstr ""
+
+#: src/engine/engine.h:59
+msgid "Number of Sentences"
+msgstr ""
+
+#: src/engine/engine.cpp:420
 msgid "Prediction"
 msgstr "Прогнозировать"
 
-#: src/engine/engine.cpp:692
+#: src/engine/engine.cpp:694
 #, c++-format
 msgid "Press {0} for {1}"
 msgstr "Нажать {0} для {1}"
 
-#: src/engine/engine.cpp:689
+#: src/engine/engine.cpp:691
 #, c++-format
 msgid "Press {0} for {1} and {2} for {3}"
 msgstr "Нажать {0} для {1} и {2} для {3}"
 
-#: src/engine/engine.cpp:690
+#: src/engine/engine.h:49
+msgid "Previous Candidate"
+msgstr ""
+
+#: src/engine/engine.h:37
+msgid "Previous Page"
+msgstr ""
+
+#: src/engine/engine.cpp:692
 msgid "Return"
 msgstr "Возврат каретки"
 
-#: src/engine/engine.cpp:419
+#: src/engine/engine.cpp:421
 msgid "Show prediction words"
 msgstr "Показать связанные слова"
+
+#: src/engine/engine.h:62
+msgid "Use Inner Segment Jyutping Settings"
+msgstr ""
 
 #: src/engine/engine.cpp:121
 #, c++-format

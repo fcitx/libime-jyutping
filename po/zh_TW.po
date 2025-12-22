@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-02-22 20:24+0000\n"
+"POT-Creation-Date: 2025-12-22 03:28+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
 "Last-Translator: Yiyu Liu, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/fcitx/teams/12005/"
@@ -21,6 +21,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: src/engine/engine.h:28
+msgid "Candidates Per Page"
+msgstr ""
+
+#: src/engine/engine.h:32
+msgid "Enable Prediction"
+msgstr ""
+
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:7
 #: src/engine/jyutping.conf.in:2 src/engine/jyutping-addon.conf.in.in:2
 msgid "Jyutping"
@@ -30,27 +38,55 @@ msgstr "粵語拼音"
 msgid "Jyutping input method"
 msgstr "粵語拼音輸入法"
 
-#: src/engine/engine.cpp:418
+#: src/engine/engine.h:55
+msgid "Next Candidate"
+msgstr ""
+
+#: src/engine/engine.h:43
+msgid "Next Page"
+msgstr ""
+
+#: src/engine/engine.h:30
+msgid "Number of Predictions"
+msgstr ""
+
+#: src/engine/engine.h:59
+msgid "Number of Sentences"
+msgstr ""
+
+#: src/engine/engine.cpp:420
 msgid "Prediction"
 msgstr "預測"
 
-#: src/engine/engine.cpp:692
+#: src/engine/engine.cpp:694
 #, c++-format
 msgid "Press {0} for {1}"
 msgstr "按下 {0} 以輸入 {1}"
 
-#: src/engine/engine.cpp:689
+#: src/engine/engine.cpp:691
 #, c++-format
 msgid "Press {0} for {1} and {2} for {3}"
 msgstr "按下 {0} 以輸入 {1}，按下 {2} 以輸入 {3}"
 
-#: src/engine/engine.cpp:690
+#: src/engine/engine.h:49
+msgid "Previous Candidate"
+msgstr ""
+
+#: src/engine/engine.h:37
+msgid "Previous Page"
+msgstr ""
+
+#: src/engine/engine.cpp:692
 msgid "Return"
 msgstr "Return 鍵"
 
-#: src/engine/engine.cpp:419
+#: src/engine/engine.cpp:421
 msgid "Show prediction words"
 msgstr "顯示預測字詞"
+
+#: src/engine/engine.h:62
+msgid "Use Inner Segment Jyutping Settings"
+msgstr ""
 
 #: src/engine/engine.cpp:121
 #, c++-format
