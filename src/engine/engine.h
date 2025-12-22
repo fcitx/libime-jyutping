@@ -24,41 +24,42 @@ namespace fcitx {
 
 FCITX_CONFIGURATION(
     JyutpingEngineConfig,
-    Option<int, IntConstrain> pageSize{this, "PageSize", "Page size", 5,
-                                       IntConstrain(3, 10)};
-    Option<int, IntConstrain> predictionSize{
-        this, "PredictionSize", "Prediction Size", 10, IntConstrain(3, 20)};
-    Option<bool> predictionEnabled{this, "Prediction", "Enable Prediction ",
+    Option<int, IntConstrain> pageSize{
+        this, "PageSize", _("Candidates Per Page"), 5, IntConstrain(3, 10)};
+    Option<int, IntConstrain> predictionSize{this, "PredictionSize",
+                                             _("Number of Predictions"), 10,
+                                             IntConstrain(3, 20)};
+    Option<bool> predictionEnabled{this, "Prediction", _("Enable Prediction"),
                                    false};
     KeyListOption prevPage{
         this,
         "PrevPage",
-        "Prev Page",
+        _("Previous Page"),
         {Key(FcitxKey_minus), Key(FcitxKey_Up)},
         KeyListConstrain({KeyConstrainFlag::AllowModifierLess})};
     KeyListOption nextPage{
         this,
         "NextPage",
-        "Next Page",
+        _("Next Page"),
         {Key(FcitxKey_equal), Key(FcitxKey_Down)},
         KeyListConstrain({KeyConstrainFlag::AllowModifierLess})};
     KeyListOption prevCandidate{
         this,
         "PrevCandidate",
-        "Prev Candidate",
+        _("Previous Candidate"),
         {Key("Shift+Tab")},
         KeyListConstrain({KeyConstrainFlag::AllowModifierLess})};
     KeyListOption nextCandidate{
         this,
         "NextCandidate",
-        "Next Candidate",
+        _("Next Candidate"),
         {Key("Tab")},
         KeyListConstrain({KeyConstrainFlag::AllowModifierLess})};
     Option<int, IntConstrain> nbest{this, "Number of sentence",
-                                    "Number of Sentence", 2,
+                                    _("Number of Sentences"), 2,
                                     IntConstrain(1, 3)};
     Option<bool> inner{this, "InnerSegment",
-                       "Use Inner Segment Jyutping Settings", true};);
+                       _("Use Inner Segment Jyutping Settings"), true};);
 
 class JyutpingState;
 class EventSourceTime;

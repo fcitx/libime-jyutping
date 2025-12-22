@@ -24,7 +24,7 @@ set(LIBIME_JYUTPING_SRCS
     jyutpingmatchstate.cpp
     )
 
-add_library(IMEJyutping SHARED ${LIBIME_JYUTPING_SRCS})
+add_library(IMEJyutping ${LIBIME_JYUTPING_SRCS})
 set_target_properties(IMEJyutping
                       PROPERTIES VERSION ${IMEJyutping_VERSION}
                       SOVERSION ${IMEJyutping_SOVERSION}

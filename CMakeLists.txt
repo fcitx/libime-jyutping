@@ -8,9 +8,12 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${C
 #########################################
 # Options
 #########################################
+option(BUILD_SHARED_LIBS "Build library as shared libs" On)
 option(ENABLE_ENGINE "Enable input method for fcitx" On)
 option(ENABLE_TEST "Build Test" On)
 option(ENABLE_DOC "Build doxygen" Off)
+option(ENABLE_DATA "Build data" On)
+option(ENABLE_TOOLS "Build tools" On)
 
 #########################################
 # Dependency
@@ -50,8 +53,12 @@ if(ENABLE_TEST)
 endif()
 
 add_subdirectory(src)
-add_subdirectory(tools)
-add_subdirectory(data)
+if (ENABLE_TOOLS)
+    add_subdirectory(tools)
+endif()
+if (ENABLE_DATA)
+    add_subdirectory(data)
+endif()
 
 if (ENABLE_DOC)
   find_package(Doxygen REQUIRED)
