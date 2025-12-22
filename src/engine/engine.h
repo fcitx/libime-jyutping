@@ -59,7 +59,7 @@ FCITX_CONFIGURATION(
                                     _("Number of Sentences"), 2,
                                     IntConstrain(1, 3)};
     Option<bool> inner{this, "InnerSegment",
-                       _("Use Inner Segment Jyutping Settings"), true};);
+                       _("Use Inner Segment"), true};);
 
 class JyutpingState;
 class EventSourceTime;
