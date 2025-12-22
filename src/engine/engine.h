@@ -58,8 +58,7 @@ FCITX_CONFIGURATION(
     Option<int, IntConstrain> nbest{this, "Number of sentence",
                                     _("Number of Sentences"), 2,
                                     IntConstrain(1, 3)};
-    Option<bool> inner{this, "InnerSegment",
-                       _("Use Inner Segment"), true};);
+    Option<bool> inner{this, "InnerSegment", _("Use Inner Segment"), true};);
 
 class JyutpingState;
 class EventSourceTime;
