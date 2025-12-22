@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-12-22 06:01+0000\n"
+"POT-Creation-Date: 2025-12-22 06:07+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
 "Last-Translator: Xuetian Weng <wengxt@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/fcitx/teams/12005/"
@@ -87,7 +87,7 @@ msgstr "显示联想词组"
 
 #: src/engine/engine.h:62
 msgid "Use Inner Segment"
-msgstr ""
+msgstr "使用内模糊切分"
 
 #: src/engine/engine.cpp:121
 #, c++-format
