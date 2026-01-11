@@ -4,15 +4,15 @@
 #
 # Translators:
 # 黃柏諺 <s8321414@gmail.com>, 2022
-# Yiyu Liu, 2025
+# Yiyu Liu, 2026
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-12-22 06:01+0000\n"
+"POT-Creation-Date: 2026-01-11 20:24+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
-"Last-Translator: Yiyu Liu, 2025\n"
+"Last-Translator: Yiyu Liu, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/fcitx/teams/12005/"
 "zh_TW/)\n"
 "Language: zh_TW\n"
@@ -23,11 +23,11 @@ msgstr ""
 
 #: src/engine/engine.h:28
 msgid "Candidates Per Page"
-msgstr ""
+msgstr "每頁候選字詞"
 
 #: src/engine/engine.h:32
 msgid "Enable Prediction"
-msgstr ""
+msgstr "啟用預測功能"
 
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:7
 #: src/engine/jyutping.conf.in:2 src/engine/jyutping-addon.conf.in.in:2
@@ -40,19 +40,19 @@ msgstr "粵語拼音輸入法"
 
 #: src/engine/engine.h:55
 msgid "Next Candidate"
-msgstr ""
+msgstr "下一個候選詞"
 
 #: src/engine/engine.h:43
 msgid "Next Page"
-msgstr ""
+msgstr "下一頁"
 
 #: src/engine/engine.h:30
 msgid "Number of Predictions"
-msgstr ""
+msgstr "預測數量"
 
 #: src/engine/engine.h:59
 msgid "Number of Sentences"
-msgstr ""
+msgstr "句子數量"
 
 #: src/engine/engine.cpp:420
 msgid "Prediction"
@@ -70,11 +70,11 @@ msgstr "按下 {0} 以輸入 {1}，按下 {2} 以輸入 {3}"
 
 #: src/engine/engine.h:49
 msgid "Previous Candidate"
-msgstr ""
+msgstr "上一個候選字"
 
 #: src/engine/engine.h:37
 msgid "Previous Page"
-msgstr ""
+msgstr "上一頁"
 
 #: src/engine/engine.cpp:692
 msgid "Return"
@@ -84,9 +84,9 @@ msgstr "Return 鍵"
 msgid "Show prediction words"
 msgstr "顯示預測字詞"
 
-#: src/engine/engine.h:62
+#: src/engine/engine.h:61
 msgid "Use Inner Segment"
-msgstr ""
+msgstr "使用內模糊切分"
 
 #: src/engine/engine.cpp:121
 #, c++-format
