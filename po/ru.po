@@ -4,15 +4,15 @@
 #
 # Translators:
 # Xuetian Weng <wengxt@gmail.com>, 2022
-# Dmitry <dmitrydmitry761@gmail.com>, 2025
+# Dmitry <dmitrydmitry761@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-jyutping\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-12-22 06:01+0000\n"
+"POT-Creation-Date: 2026-01-12 20:24+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
-"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2025\n"
+"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2026\n"
 "Language-Team: Russian (https://app.transifex.com/fcitx/teams/12005/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,11 @@ msgstr ""
 
 #: src/engine/engine.h:28
 msgid "Candidates Per Page"
-msgstr ""
+msgstr "Количество слов-кандидатов на страницу"
 
 #: src/engine/engine.h:32
 msgid "Enable Prediction"
-msgstr ""
+msgstr "Включить прогнозирование"
 
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:7
 #: src/engine/jyutping.conf.in:2 src/engine/jyutping-addon.conf.in.in:2
@@ -41,19 +41,19 @@ msgstr "Кантонский метод ввода Ютпхин"
 
 #: src/engine/engine.h:55
 msgid "Next Candidate"
-msgstr ""
+msgstr "Следующее слово-кандидат"
 
 #: src/engine/engine.h:43
 msgid "Next Page"
-msgstr ""
+msgstr "Следующая Страница"
 
 #: src/engine/engine.h:30
 msgid "Number of Predictions"
-msgstr ""
+msgstr "Количество прогнозов"
 
 #: src/engine/engine.h:59
 msgid "Number of Sentences"
-msgstr ""
+msgstr "Количество предложений"
 
 #: src/engine/engine.cpp:420
 msgid "Prediction"
@@ -71,11 +71,11 @@ msgstr "Нажать {0} для {1} и {2} для {3}"
 
 #: src/engine/engine.h:49
 msgid "Previous Candidate"
-msgstr ""
+msgstr "Предыдущее слово-кандидат"
 
 #: src/engine/engine.h:37
 msgid "Previous Page"
-msgstr ""
+msgstr "Предыдущая страница"
 
 #: src/engine/engine.cpp:692
 msgid "Return"
@@ -85,9 +85,9 @@ msgstr "Возврат каретки"
 msgid "Show prediction words"
 msgstr "Показать связанные слова"
 
-#: src/engine/engine.h:62
+#: src/engine/engine.h:61
 msgid "Use Inner Segment"
-msgstr ""
+msgstr "Использовать сегментацию с внутренним размытием"
 
 #: src/engine/engine.cpp:121
 #, c++-format
