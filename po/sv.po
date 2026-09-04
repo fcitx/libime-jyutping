@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the fcitx5-jyutping package.
 #
 # Translators:
-# Huy Võ <hoanghuy309@gmail.com>, 2026
+# Daniel Nylander <po@danielnylander.se>, 2026
 #
 msgid ""
 msgstr ""
@@ -11,82 +11,82 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2026-09-04 20:25+0000\n"
 "PO-Revision-Date: 2022-12-07 15:20+0000\n"
-"Last-Translator: Huy Võ <hoanghuy309@gmail.com>, 2026\n"
-"Language-Team: Vietnamese (https://app.transifex.com/fcitx/teams/12005/vi/)\n"
-"Language: vi\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
+"Language-Team: Swedish (https://app.transifex.com/fcitx/teams/12005/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/engine/engine.h:28
 msgid "Candidates Per Page"
-msgstr ""
+msgstr "Kandidater per sida"
 
 #: src/engine/engine.h:30
 msgid "Number of Predictions"
-msgstr ""
+msgstr "Antal förutsägelser"
 
 #: src/engine/engine.h:32
 msgid "Enable Prediction"
-msgstr "Bật Dự Đoán"
+msgstr "Aktivera förutsägelse"
 
 #: src/engine/engine.h:37
 msgid "Previous Page"
-msgstr ""
+msgstr "Föregående sida"
 
 #: src/engine/engine.h:43
 msgid "Next Page"
-msgstr ""
+msgstr "Nästa sida"
 
 #: src/engine/engine.h:49
 msgid "Previous Candidate"
-msgstr ""
+msgstr "Föregående kandidat"
 
 #: src/engine/engine.h:55
 msgid "Next Candidate"
-msgstr ""
+msgstr "Nästa kandidat"
 
 #: src/engine/engine.h:59
 msgid "Number of Sentences"
-msgstr ""
+msgstr "Antal meningar"
 
 #: src/engine/engine.h:61
 msgid "Use Inner Segment"
-msgstr ""
+msgstr "Använd inre segment"
 
 #: src/engine/engine.cpp:121
 #, c++-format
 msgid "{0} ({1})"
-msgstr ""
+msgstr "{0} ({1})"
 
 #: src/engine/engine.cpp:420
 msgid "Prediction"
-msgstr ""
+msgstr "Förutsägelse"
 
 #: src/engine/engine.cpp:421
 msgid "Show prediction words"
-msgstr ""
+msgstr "Visa förutsagda ord"
 
 #: src/engine/engine.cpp:692
 msgid "Return"
-msgstr ""
+msgstr "Retur"
 
 #: src/engine/engine.cpp:691
 #, c++-format
 msgid "Press {0} for {1} and {2} for {3}"
-msgstr ""
+msgstr "Tryck på {0} för {1} och på {2} för {3}"
 
 #: src/engine/engine.cpp:694
 #, c++-format
 msgid "Press {0} for {1}"
-msgstr ""
+msgstr "Tryck på {0} för {1}"
 
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:7
 #: src/engine/jyutping.conf.in:2 src/engine/jyutping-addon.conf.in.in:2
 msgid "Jyutping"
-msgstr ""
+msgstr "Jyutping"
 
 #: src/engine/org.fcitx.Fcitx5.Addon.Jyutping.metainfo.xml.in:8
 msgid "Jyutping input method"
-msgstr ""
+msgstr "Jyutping-inmatningsmetod"
