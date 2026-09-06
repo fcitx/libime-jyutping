@@ -81,6 +81,7 @@ jobs:
           cmake-option: >-
             -DENABLE_GUI=Off
             -DENABLE_OPENCC=Off
+            -DENABLE_CLOUDPINYIN=Off
       - uses: actions/checkout@v4
         with:
           path: libime-jyutping
